@@ -150,4 +150,58 @@ classDiagram
     Barcode --> BarcodeType
     Dimensions ..> VolumeCalculation
     ShelfLife --> ShelfLifeType
+```  
+#Entities  
+```mermaid  
+classDiagram
+    class Warehouse {
+        +String code
+        +String name
+        +Address location
+        +WarehouseType type
+        +Set~StorageZone~ zones
+        +Set~Dock~ docks
+        +Set~Equipment~ equipment
+    }
+
+    class StorageZone {
+        +String code
+        +String name
+        +TemperatureRange tempRange
+        +HumidityRange humidityRange
+        +Set~StorageRack~ racks
+        +Set~SpecialRequirement~ requirements
+    }
+
+    class StorageRack {
+        +String identifier
+        +RackType type
+        +Dimensions dimensions
+        +int levels
+        +Set~StorageSection~ sections
+        +LoadCapacity capacity
+    }
+
+    class StorageSection {
+        +String code
+        +StorageLocationType type
+        +Dimensions dimensions
+        +Set~StorageBin~ bins
+        +Accessibility accessType
+    }
+
+    class StorageBin {
+        +String barcode
+        +BinStatus status
+        +Dimensions dimensions
+        +WeightCapacity capacity
+        +Set~StorageItem~ items
+        +BinType type
+    }
+
+    Warehouse "1" *-- "1..*" StorageZone
+    StorageZone "1" *-- "1..*" StorageRack
+    StorageRack "1" *-- "1..*" StorageSection
+    StorageSection "1" *-- "1..*" StorageBin  
 ```
+
