@@ -39,4 +39,115 @@ A .NET console application for warehouse management that handles pallets and box
 ## Implementation Notes
 - Use OOP principles for class design.
 - Ensure proper validation (e.g., box fits pallet dimensions).
-- Include error handling for data loading.
+- Include error handling for data loading.  
+
+# Domain models  
+```mermaid  
+classDiagram
+    %% Value Objects
+    class Address {
+        +String street
+        +String city
+        +String state
+        +String postalCode
+        +String country
+        +GeoCoordinate coordinates
+    }
+
+    class Dimensions {
+        +decimal length
+        +decimal width
+        +decimal height
+        +decimal volume
+    }
+
+    class TemperatureRange {
+        +decimal minTemp
+        +decimal maxTemp
+    }
+
+    class Barcode {
+        +String code
+        +BarcodeType type
+    }
+
+    class GeoCoordinate {
+        +decimal latitude
+        +decimal longitude
+    }
+
+    class LoadCapacity {
+        +decimal maxWeight
+        +decimal maxVolume
+    }
+
+    class ShelfLife {
+        +TimeSpan duration
+        +ShelfLifeType type
+    }
+
+    %% Enumerations
+    class ItemStatus {
+        <<enumeration>>
+        IN_STOCK
+        RESERVED
+        IN_TRANSIT
+        DAMAGED
+        QUARANTINED
+        DISPOSED
+    }
+
+    class DeliveryStatus {
+        <<enumeration>>
+        CREATED
+        IN_TRANSIT
+        ARRIVED
+        UNLOADING
+        INSPECTING
+        COMPLETED
+        DELAYED
+        CANCELLED
+    }
+
+    class EquipmentType {
+        <<enumeration>>
+        FORKLIFT
+        PALLET_JACK
+        AGV
+        CONVEYOR
+        CRANE
+        SENSOR
+    }
+
+    class BinStatus {
+        <<enumeration>>
+        AVAILABLE
+        OCCUPIED
+        RESERVED
+        MAINTENANCE
+        QUARANTINE
+    }
+
+    class TaskPriority {
+        <<enumeration>>
+        CRITICAL
+        HIGH
+        MEDIUM
+        LOW
+    }
+
+    class MovementReason {
+        <<enumeration>>
+        RECEIVING
+        PICKING
+        REORGANIZATION
+        QUALITY_CHECK
+        INVENTORY_ADJUSTMENT
+    }
+
+    %% Relationships (if any)
+    Address *-- GeoCoordinate
+    Barcode --> BarcodeType
+    Dimensions ..> VolumeCalculation
+    ShelfLife --> ShelfLifeType
+```
