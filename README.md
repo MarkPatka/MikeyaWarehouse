@@ -151,7 +151,8 @@ classDiagram
     Dimensions ..> VolumeCalculation
     ShelfLife --> ShelfLifeType
 ```  
-#Entities  
+  
+# Entities  
 ```mermaid  
 classDiagram
     class Warehouse {
