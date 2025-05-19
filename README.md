@@ -44,8 +44,17 @@ A .NET console application for warehouse management that handles pallets and box
 # Domain models  
 ```mermaid  
 classDiagram
-    %% Value Objects
+    class Warehouse {
+        +Int identifier
+        +String name
+        +Address location
+        +Set~BufferZone~ buffers
+        +Set~StorageZone~ zones
+        +Set~Ramp~ ramps
+    }
+    
     class Address {
+        +Int identifier
         +String street
         +String city
         +String state
@@ -53,48 +62,121 @@ classDiagram
         +String country
         +GeoCoordinate coordinates
     }
-
+    
+    class GeoCoordinate {
+        +int identifier
+        +decimal latitude
+        +decimal longitude
+    }
+    
+    class BufferZone {
+        +Int identifier
+        +LoadCapacity capacity
+        +Dimensions spaceAvailable
+        +Status status
+    }
+    
+    class LoadCapacity {
+        +Int identifier
+        +decimal maxWeight
+        +decimal maxVolume
+    }
+    
     class Dimensions {
+        +Int identifier
         +decimal length
         +decimal width
         +decimal height
         +decimal volume
+        +decimal weight
     }
-
-    class TemperatureRange {
-        +decimal minTemp
-        +decimal maxTemp
-    }
-
-    class Barcode {
+    
+    class StorageZone {
+        +Int identifier
         +String code
-        +BarcodeType type
+        +ClimatRegime regime
+        +Set~StorageRack~ racks
+    }
+    
+    class ClimatRegime {
+        +Int identifier
+        +TemperatureRange tempRange
+        +HumidityRange humidityRange
+    }
+    
+    class TemperatureRange {
+        Int identifier
+        +decimal minTemperture
+        +decimal maxTemperature
+    }
+    
+    class HumidityRange {
+        Int identifier
+        +decimal minPercent
+        +decimal maxPercent
+    }
+    
+    class StorageRack {
+        +Int identifier
+        +Int levels
+        +LoadCapacity capacity
+        +Set~StorageSection~ sections
+    }
+    
+    class StorageSection {
+        +Int identifier
+        +String code
+        +Int shells
+        +Set~StorageBin~ bins
+    }
+    
+    class StorageBin {
+        +Int identifier
+        +Int shell
+        +int code
+        +String barcode
+        +BinStatus status
+        +Dimensions dimensions
+        +LoadCapacity capacity
+        +Set~StorageItem~ items
+    }
+    
+    class Ramp {
+        +Int identifier
+        +Char gate
+        +Int status
     }
 
-    class GeoCoordinate {
-        +decimal latitude
-        +decimal longitude
-    }
-
-    class LoadCapacity {
-        +decimal maxWeight
-        +decimal maxVolume
-    }
-
-    class ShelfLife {
-        +TimeSpan duration
-        +ShelfLifeType type
-    }
-
-    %% Enumerations
+    Warehouse "1" *-- "1" Address
+    Address "1" *-- "1" GeoCoordinate
+    
+    Warehouse "1" *-- "1" BufferZone
+    BufferZone "1" *-- "1" Dimensions
+    BufferZone "1" *-- "1" LoadCapacity
+    
+    Warehouse "1" *-- "1..*" StorageZone
+    StorageZone "1" *-- "1" ClimatRegime
+    ClimatRegime "1" *-- "1" TemperatureRange
+    ClimatRegime "1" *-- "1" HumidityRange
+    
+    StorageZone "1" *-- "1..*" StorageRack
+    StorageRack "1" *-- "1..*" StorageSection
+    StorageSection "1" *-- "1..*" StorageBin
+    StorageBin "1" *-- "1" Dimensions
+    StorageBin "1" *-- "1" LoadCapacity
+    
+    Warehouse "1" *-- "1..*" Ramp
+```  
+  
+# Enumerations  
+```mermaid  
+ classDiagram
+ %% Enumerations
     class ItemStatus {
         <<enumeration>>
         IN_STOCK
         RESERVED
         IN_TRANSIT
-        DAMAGED
-        QUARANTINED
-        DISPOSED
     }
 
     class DeliveryStatus {
@@ -103,20 +185,9 @@ classDiagram
         IN_TRANSIT
         ARRIVED
         UNLOADING
-        INSPECTING
         COMPLETED
         DELAYED
         CANCELLED
-    }
-
-    class EquipmentType {
-        <<enumeration>>
-        FORKLIFT
-        PALLET_JACK
-        AGV
-        CONVEYOR
-        CRANE
-        SENSOR
     }
 
     class BinStatus {
@@ -124,8 +195,6 @@ classDiagram
         AVAILABLE
         OCCUPIED
         RESERVED
-        MAINTENANCE
-        QUARANTINE
     }
 
     class TaskPriority {
@@ -142,67 +211,50 @@ classDiagram
         PICKING
         REORGANIZATION
         QUALITY_CHECK
-        INVENTORY_ADJUSTMENT
     }
+```
 
-    %% Relationships (if any)
-    Address *-- GeoCoordinate
-    Barcode --> BarcodeType
-    Dimensions ..> VolumeCalculation
-    ShelfLife --> ShelfLifeType
-```  
-  
-# Entities  
-```mermaid  
+# Items
+```mermaid
 classDiagram
-    class Warehouse {
-        +String code
-        +String name
-        +Address location
-        +WarehouseType type
-        +Set~StorageZone~ zones
-        +Set~Dock~ docks
-        +Set~Equipment~ equipment
+    direction LR
+    
+    class Item {
+        +Int identifier
+        +string name
+        +Int volume
+        +Dimensions dimension
+        +Barcode itemCode
     }
 
-    class StorageZone {
-        +String code
-        +String name
-        +TemperatureRange tempRange
-        +HumidityRange humidityRange
-        +Set~StorageRack~ racks
-        +Set~SpecialRequirement~ requirements
+    class Box {
+        +Int identifier
+        +Int volume
+        +Dimensions dimension
+        +Date expire
+        +Date production
+        +Barcode boxItemsCode
+        +Set~Item~ items
+    } 
+
+    class Pallet {
+        +Int identifier
+        +Int weight
+        +Int dimension
+        +Set~Box~ boxes
     }
 
-    class StorageRack {
-        +String identifier
-        +RackType type
-        +Dimensions dimensions
-        +int levels
-        +Set~StorageSection~ sections
-        +LoadCapacity capacity
-    }
-
-    class StorageSection {
-        +String code
-        +StorageLocationType type
-        +Dimensions dimensions
-        +Set~StorageBin~ bins
-        +Accessibility accessType
-    }
-
-    class StorageBin {
+    class Barcode {
+        +Int identifier
         +String barcode
-        +BinStatus status
-        +Dimensions dimensions
-        +WeightCapacity capacity
-        +Set~StorageItem~ items
-        +BinType type
     }
 
-    Warehouse "1" *-- "1..*" StorageZone
-    StorageZone "1" *-- "1..*" StorageRack
-    StorageRack "1" *-- "1..*" StorageSection
-    StorageSection "1" *-- "1..*" StorageBin  
+
+    Barcode <|-- Item : "1"
+    Barcode <|-- Box : "1"
+    Item "1..*" --> "1" Box : contains
+    Box "1..*" -- "1" Pallet : contains
+
+
 ```
 
