@@ -127,7 +127,6 @@ classDiagram
         +Int identifier
         +String code
         +Int shells
-        +Set~Dimensions~ dimensions
         +Set~StorageBin~ bins
     }
     
