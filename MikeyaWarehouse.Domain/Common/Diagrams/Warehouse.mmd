@@ -1,0 +1,124 @@
+classDiagram
+    class Warehouse {
+        +Int identifier
+        +String name
+        +Address location
+        +Set~BufferZone~ buffers
+        +Set~StorageZone~ zones
+        +Set~Ramp~ ramps
+    }
+    
+    class Address {
+        +Int identifier
+        +String street
+        +String city
+        +String state
+        +String postalCode
+        +String country
+        +GeoCoordinate coordinates
+    }
+    
+    class GeoCoordinate {
+        +int identifier
+        +decimal latitude
+        +decimal longitude
+    }
+    
+    class BufferZone {
+        +Int identifier
+        +LoadCapacity capacity
+        +Dimensions spaceAvailable
+        +Status status
+    }
+    
+    class LoadCapacity {
+        +Int identifier
+        +decimal maxWeight
+        +decimal maxVolume
+    }
+    
+    class Dimensions {
+        +Int identifier
+        +decimal length
+        +decimal width
+        +decimal height
+        +decimal volume
+        +decimal weight
+    }
+    
+    class StorageZone {
+        +Int identifier
+        +String code
+        +ClimatRegime regime
+        +Set~StorageRack~ racks
+    }
+    
+    class ClimatRegime {
+        +Int identifier
+        +TemperatureRange tempRange
+        +HumidityRange humidityRange
+    }
+    
+    class TemperatureRange {
+        Int identifier
+        +decimal minTemperture
+        +decimal maxTemperature
+    }
+    
+    class HumidityRange {
+        Int identifier
+        +decimal minPercent
+        +decimal maxPercent
+    }
+    
+    class StorageRack {
+        +Int identifier
+        +Int levels
+        +LoadCapacity capacity
+        +Set~StorageSection~ sections
+    }
+    
+    class StorageSection {
+        +Int identifier
+        +String code
+        +Int shells
+        +Set~StorageBin~ bins
+    }
+    
+    class StorageBin {
+        +Int identifier
+        +Int shell
+        +int code
+        +String barcode
+        +BinStatus status
+        +Dimensions dimensions
+        +LoadCapacity capacity
+        +Set~StorageItem~ items
+    }
+    
+    class Ramp {
+        +Int identifier
+        +Char gate
+        +Int status
+    }
+
+    Warehouse "1" *-- "1" Address
+    Address "1" *-- "1" GeoCoordinate
+    
+    Warehouse "1" *-- "1" BufferZone
+    BufferZone "1" *-- "1" Dimensions
+    BufferZone "1" *-- "1" LoadCapacity
+    
+    Warehouse "1" *-- "1..*" StorageZone
+    StorageZone "1" *-- "1" ClimatRegime
+    ClimatRegime "1" *-- "1" TemperatureRange
+    ClimatRegime "1" *-- "1" HumidityRange
+    
+    StorageZone "1" *-- "1..*" StorageRack
+    StorageRack "1" *-- "1..*" StorageSection
+    StorageSection "1" *-- "1..*" StorageBin
+    
+    StorageBin "1" *-- "1" Dimensions
+    StorageBin "1" *-- "1" LoadCapacity
+    
+    Warehouse "1" *-- "1..*" Ramp

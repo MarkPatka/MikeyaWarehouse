@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Product\Entities\" />
+    <Folder Include="Product\Enumerations\" />
+    <Folder Include="Shipment\Entities\" />
+    <Folder Include="Shipment\Enumerations\" />
+    <Folder Include="Shipment\ValueObjects\" />
+    <Folder Include="Warehouse\Enumerations\" />
+  </ItemGroup>
+
 </Project>

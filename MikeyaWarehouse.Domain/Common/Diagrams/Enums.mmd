@@ -1,0 +1,42 @@
+ classDiagram
+ %% Enumerations
+    class ItemStatus {
+        <<enumeration>>
+        IN_STOCK
+        RESERVED
+        IN_TRANSIT
+    }
+
+    class DeliveryStatus {
+        <<enumeration>>
+        CREATED
+        IN_TRANSIT
+        ARRIVED
+        UNLOADING
+        COMPLETED
+        DELAYED
+        CANCELLED
+    }
+
+    class BinStatus {
+        <<enumeration>>
+        AVAILABLE
+        OCCUPIED
+        RESERVED
+    }
+
+    class TaskPriority {
+        <<enumeration>>
+        CRITICAL
+        HIGH
+        MEDIUM
+        LOW
+    }
+
+    class MovementReason {
+        <<enumeration>>
+        RECEIVING
+        PICKING
+        REORGANIZATION
+        QUALITY_CHECK
+    }
