@@ -214,3 +214,47 @@ classDiagram
     }
 ```
 
+# Items
+```mermaid
+classDiagram
+    direction LR
+    
+    class Item {
+        +Int identifier
+        +string name
+        +Int volume
+        +Dimensions dimension
+        +Barcode itemCode
+    }
+
+    class Box {
+        +Int identifier
+        +Int volume
+        +Dimensions dimension
+        +Date expire
+        +Date production
+        +Barcode boxItemsCode
+        +Set~Item~ items
+    } 
+
+    class Pallet {
+        +Int identifier
+        +Int weight
+        +Int dimension
+        +Set~Box~ boxes
+    }
+
+    class Barcode {
+        +Int identifier
+        +String barcode
+    }
+
+
+    Barcode <|-- Item : "1"
+    Barcode <|-- Box : "1"
+    Item "1..*" --> "1" Box : contains
+    Box "1..*" -- "1" Pallet : contains
+
+
+```
+
