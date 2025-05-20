@@ -2,18 +2,18 @@
 
 namespace MikeyaWarehouse.Domain.Warehouse.ValueObjects;
 
-public sealed class GeoCoordinatesId : ValueObject
+public sealed class StorageSectionId : ValueObject
 {
     public int Value { get; }
 
-    private GeoCoordinatesId(int value)
+    private StorageSectionId(int value)
     {
-        Value = value;
+        Value = value;        
     }
 
-    public static GeoCoordinatesId Create(int value)
+    public static StorageSectionId Create(int value)
     {
-        return new GeoCoordinatesId(value);
+        return new StorageSectionId(value);
     }
 
     public override IEnumerable<object> GetEqualityComponents()

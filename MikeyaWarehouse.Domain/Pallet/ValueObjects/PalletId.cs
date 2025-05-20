@@ -11,6 +11,11 @@ public sealed class PalletId : ValueObject
         Value = value;
     }
 
+    public static PalletId Create(int value)
+    {
+        return new PalletId(value);
+    }
+
     public override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;

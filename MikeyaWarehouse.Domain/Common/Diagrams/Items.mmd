@@ -10,7 +10,6 @@
 
     class Box {
         +Int identifier
-        +Int volume
         +Dimensions dimension
         +Date expire
         +Date production
@@ -20,9 +19,9 @@
 
     class Pallet {
         +Int identifier
-        +Int weight
         +Int dimension
         +Set~Box~ boxes
+        +Set~Item~ items
     }
 
     class Barcode {

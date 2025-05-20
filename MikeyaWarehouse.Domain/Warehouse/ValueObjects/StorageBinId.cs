@@ -2,16 +2,20 @@
 
 namespace MikeyaWarehouse.Domain.Warehouse.ValueObjects;
 
-public class AdressId : ValueObject
+public sealed class StorageBinId : ValueObject
 {
     public int Value { get; }
 
-    private AdressId(int value) { Value = value; }
-
-    public static AdressId Create(int value)
+    private StorageBinId(int value) 
     {
-        return new AdressId(value);
+        Value = value;
     }
+
+    public static StorageBinId Create(int value)
+    {
+        return new StorageBinId(value);
+    }
+
     public override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;

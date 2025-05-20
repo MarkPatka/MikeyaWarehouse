@@ -1,15 +1,19 @@
 ﻿using MikeyaWarehouse.Domain.Common.Abstract;
-using MikeyaWarehouse.Domain.Common.ValueObjects;
 
 namespace MikeyaWarehouse.Domain.Pallet.ValueObjects;
 
-public sealed class CardBoardBoxId : ValueObject
+public sealed class ProductBoxId : ValueObject
 {
     public int Value { get; }
 
-    private CardBoardBoxId(int value)
+    private ProductBoxId(int value)
     {
         Value = value;
+    }
+
+    public static ProductBoxId Create(int value)
+    {
+        return new ProductBoxId(value);
     }
 
     public override IEnumerable<object> GetEqualityComponents()

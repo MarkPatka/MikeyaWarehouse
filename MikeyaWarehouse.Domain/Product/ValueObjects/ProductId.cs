@@ -3,13 +3,18 @@ using MikeyaWarehouse.Domain.Common.Abstract;
 
 namespace MikeyaWarehouse.Domain.Product.ValueObjects;
 
-public sealed class ProductItemId : ValueObject
+public sealed class ProductId : ValueObject
 {
     public int Value { get; }
 
-    public ProductItemId(int value)
+    private ProductId(int value)
     {
         Value = value;
+    }
+
+    public static ProductId Create(int value)
+    {
+        return new ProductId(value);
     }
 
     public override IEnumerable<object> GetEqualityComponents()

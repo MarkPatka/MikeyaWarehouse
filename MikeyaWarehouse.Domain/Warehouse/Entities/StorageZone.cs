@@ -1,4 +1,5 @@
 ﻿using MikeyaWarehouse.Domain.Common.Abstract;
+using MikeyaWarehouse.Domain.Common.Entities;
 using MikeyaWarehouse.Domain.Warehouse.ValueObjects;
 
 namespace MikeyaWarehouse.Domain.Warehouse.Entities;
@@ -6,10 +7,24 @@ namespace MikeyaWarehouse.Domain.Warehouse.Entities;
 public sealed class StorageZone : Entity<StorageZoneId>
 {
     private readonly List<StorageRack> _racks = [];
+    public ClimatRegime Regime { get; }
+    public char Code { get; }
+    public IReadOnlyList<StorageRack> Racks => _racks.AsReadOnly();
 
-    public string Code { get; } // A, B, C, D ...
-    public ClimatRegime Regime { get; } 
+    private StorageZone(
+        StorageZoneId id, 
+        ClimatRegime regime, 
+        char code) 
+        : base(id)
+    {
+        Regime = regime;
+        Code = code;
+    }
 
-
+    public static StorageZone Create(
+        int id, ClimatRegime regime, char code)
+    {
+        return new(StorageZoneId.Create(id), regime, code);
+    }
 
 }

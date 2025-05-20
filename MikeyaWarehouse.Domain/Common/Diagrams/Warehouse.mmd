@@ -80,7 +80,6 @@ classDiagram
     
     class StorageSection {
         +Int identifier
-        +String code
         +Int shells
         +Set~StorageBin~ bins
     }
@@ -88,7 +87,7 @@ classDiagram
     class StorageBin {
         +Int identifier
         +Int shell
-        +int code
+        +Int number
         +String barcode
         +BinStatus status
         +Dimensions dimensions

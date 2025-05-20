@@ -7,12 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="DeliveryIn\Entities\" />
+    <Folder Include="DeliveryIn\Enumerations\" />
+    <Folder Include="DeliveryOut\Entities\" />
+    <Folder Include="DeliveryOut\Enumerations\" />
     <Folder Include="Product\Entities\" />
-    <Folder Include="Product\Enumerations\" />
-    <Folder Include="Shipment\Entities\" />
-    <Folder Include="Shipment\Enumerations\" />
-    <Folder Include="Shipment\ValueObjects\" />
-    <Folder Include="Warehouse\Enumerations\" />
   </ItemGroup>
 
 </Project>
