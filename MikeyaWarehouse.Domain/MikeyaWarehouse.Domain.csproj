@@ -7,11 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DeliveryIn\Entities\" />
-    <Folder Include="DeliveryIn\Enumerations\" />
-    <Folder Include="DeliveryOut\Entities\" />
-    <Folder Include="DeliveryOut\Enumerations\" />
-    <Folder Include="Product\Entities\" />
+    <None Remove="PalletAggregate\Pallet.cs~RF1b0a65e9.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ContractorsAggregate\Entities\" />
+    <Folder Include="ContractorsAggregate\Enumerations\" />
+    <Folder Include="ProductAggregate\Entities\" />
+    <Folder Include="ShipmentAggregate\Entities\" />
   </ItemGroup>
 
 </Project>

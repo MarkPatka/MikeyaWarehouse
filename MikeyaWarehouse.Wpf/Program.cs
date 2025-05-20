@@ -15,12 +15,6 @@ internal class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        // use in memory db if private mode for examle
-        Parsed<CommandLineOptions> parserResult = Parser.Default
-            .ParseArguments<CommandLineOptions>(args)
-            .Cast<Parsed<CommandLineOptions>>();
-
-
         EnvLoader.Load();
 
         using var mutex = new Mutex(true, Assembly.GetExecutingAssembly().FullName, out bool createdNew);
@@ -38,6 +32,7 @@ internal class Program
             {
                 using IHost host = CreateHostBuilder().Build();
                 SubscribeToDomainUnhandledExceptions();
+                string s = GetDatabaseConnectionEvironmentCredentials();
                 RunApplication(host);
             }
         }
@@ -67,11 +62,12 @@ internal class Program
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);
         };
+
     private static void RunApplication(IHost host)
     {
         try
         {
-            var app = new Application();
+            var app = new System.Windows.Application();
             var mainWindow = host.Services.GetRequiredService<MainWindow>();
             mainWindow.DataContext = host.Services.GetRequiredService<IMainViewModel>();
             app.Run(mainWindow);
@@ -82,6 +78,21 @@ internal class Program
                 $"Program error occurred: {ex.Message}", 
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+    }
+
+    private static string GetDatabaseConnectionEvironmentCredentials()
+    {
+        var dbHost = Environment.GetEnvironmentVariable("DB_HOST") ?? "localhost";
+        var dbName = Environment.GetEnvironmentVariable("DB_NAME") ?? "appdb";
+        var dbUser = Environment.GetEnvironmentVariable("DB_USER") ?? "postgres";
+        var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD") ?? "password";
+
+        return
+            $"Host={dbHost};" +
+            $"Port=5432;" +
+            $"Database={dbName};" +
+            $"Username={dbUser};" +
+            $"Password={dbPassword}";
     }
 }
 

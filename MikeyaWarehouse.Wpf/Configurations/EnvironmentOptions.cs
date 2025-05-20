@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Reflection;
 using DotNetEnv;
 
 namespace MikeyaWarehouse.Wpf.Configurations;
@@ -13,6 +14,7 @@ public static class EnvLoader
 
         try
         {
+            string s = Directory.GetCurrentDirectory();
             Env.Load(Path.Combine(
                 Directory.GetCurrentDirectory(), fileName));
 
