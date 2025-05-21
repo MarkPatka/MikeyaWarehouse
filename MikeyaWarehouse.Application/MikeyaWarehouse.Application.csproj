@@ -5,7 +5,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Common\Services\" />
     <Folder Include="Inventory\Commands\" />
   </ItemGroup>
 

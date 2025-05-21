@@ -2,7 +2,7 @@
 using MikeyaWarehouse.Application.Common.Interfaces;
 using MikeyaWarehouse.Application.Inventory.Common;
 
-namespace MikeyaWarehouse.Application.Inventory.Queries.ExpiresPallets;
+namespace MikeyaWarehouse.Application.Inventory.Queries.PalletVolume;
 
 public class GetPalletVolumeQueryHandler
     : IQueryHandler<GetPalletVolumeQuery, PalletsVolumeResult>

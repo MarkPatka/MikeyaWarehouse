@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
-using MikeyaWarehouse.Application.Inventory.Queries.ExpiresPallets;
 
-namespace MikeyaWarehouse.Application.Inventory.Queries.PalletExpires;
+namespace MikeyaWarehouse.Application.Inventory.Queries.PalletVolume;
 
 public class GetPalletVolumeQueryValidator : AbstractValidator<GetPalletVolumeQuery>
 {

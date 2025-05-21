@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using MikeyaWarehouse.Application.Inventory.Queries.ExpiresPallets;
 
 namespace MikeyaWarehouse.Application.Inventory.Queries.PalletExpires;
 

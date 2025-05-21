@@ -2,7 +2,7 @@
 using MikeyaWarehouse.Application.Common.Interfaces;
 using MikeyaWarehouse.Application.Inventory.Common;
 
-namespace MikeyaWarehouse.Application.Inventory.Queries.ExpiresPallets;
+namespace MikeyaWarehouse.Application.Inventory.Queries.PalletExpires;
 
 public class GetPalletExpiresQueryHandler
     : IQueryHandler<GetPalletExpiresQuery, PalletsExpiresResult>
