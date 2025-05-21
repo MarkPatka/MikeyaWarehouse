@@ -7,13 +7,13 @@ namespace MikeyaWarehouse.Domain.ProductAggregate;
 public sealed class Product : AggregateRoot<ProductId>
 {
     public string Name { get; } = null!;
-    public DateTime Production { get; }
-    public DateTime Expires { get; }
+    public DateOnly Production { get; }
+    public DateOnly Expires { get; }
     public BarCode BarCode { get; }
     public Dimensions Dimensions { get; }
 
     private Product(ProductId id, 
-        string name, DateTime production, DateTime expires, 
+        string name, DateOnly production, DateOnly expires, 
         BarCode code, Dimensions dimensions)
         : base(id)
     {
@@ -25,7 +25,7 @@ public sealed class Product : AggregateRoot<ProductId>
     }
 
     public static Product Create(
-        int id, string name, DateTime production, DateTime expires,
+        int id, string name, DateOnly production, DateOnly expires,
         BarCode code, Dimensions dimensions)
     {
         return new(ProductId.Create(id), name, production, expires, code, dimensions);

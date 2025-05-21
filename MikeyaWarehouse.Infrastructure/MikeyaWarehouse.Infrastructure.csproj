@@ -9,10 +9,6 @@
     <ProjectReference Include="..\MikeyaWarehouse.Application\MikeyaWarehouse.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>

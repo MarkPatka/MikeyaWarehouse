@@ -10,8 +10,8 @@ public class ProductBox : Entity<ProductBoxId>
     public ProductId BoxedProductId { get; }
     public int Quantity { get; }
     public Dimensions Dimensions { get; }
-    public DateTime Expire { get; }
-    public DateTime Production { get; }
+    public DateOnly Expire { get; }
+    public DateOnly Production { get; }
     public BarCode Code { get; }
 
     private ProductBox(
@@ -19,8 +19,8 @@ public class ProductBox : Entity<ProductBoxId>
         ProductId productId,
         int productQuantity,
         Dimensions dimensions, 
-        DateTime expire, 
-        DateTime production, 
+        DateOnly expire,
+        DateOnly production, 
         BarCode code) 
         : base(id)
     {
@@ -36,8 +36,8 @@ public class ProductBox : Entity<ProductBoxId>
         ProductId productId,
         int productQuantity,
         Dimensions dimensions,
-        DateTime expire,
-        DateTime production,
+        DateOnly expire,
+        DateOnly production,
         BarCode code)
     {
         return new(ProductBoxId.Create(Guid.NewGuid()), 
