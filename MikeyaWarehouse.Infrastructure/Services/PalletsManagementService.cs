@@ -51,7 +51,8 @@ public class PalletsManagementService
 
         if (pallets.Length <= count)
             return [.. pallets.OrderByDescending(p => p.Dimensions.Volume)];
-
+        
+        // init first n elements as they go in the initial array
         int i = count;
         while (i > 0) 
         {
@@ -59,20 +60,23 @@ public class PalletsManagementService
             count--;
         }
 
+        // get the index of the min element from the max elements array (by expire date)
         int minIndex = GetIndexPalletWithTheBoxOfMinExpireDate(result);
         DateOnly currentMinExpire = result[minIndex].Expires;
 
         for (; i < pallets.Length; i++)
         {
+            // if current pallet expire > current min (from max elements) expire replace it
             DateOnly expire = pallets[i].GetMaxExpireDate();
             if (expire > currentMinExpire)
             {
                 result[minIndex] = pallets[i];
+                // update min value from the result collection
                 minIndex = GetIndexPalletWithTheBoxOfMinExpireDate(result);
                 currentMinExpire = result[minIndex].Expires;
             }
         }
-
+        // to avoid overhead of separate sorting algorithms
         return [.. result.OrderByDescending(p => p.Dimensions.Volume)];
     }
     private static int GetIndexPalletWithTheBoxOfMinExpireDate(Pallet[] pallets)
