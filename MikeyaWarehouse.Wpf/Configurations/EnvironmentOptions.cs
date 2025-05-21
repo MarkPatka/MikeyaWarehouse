@@ -14,7 +14,6 @@ public static class EnvLoader
 
         try
         {
-            string s = Directory.GetCurrentDirectory();
             Env.Load(Path.Combine(
                 Directory.GetCurrentDirectory(), fileName));
 

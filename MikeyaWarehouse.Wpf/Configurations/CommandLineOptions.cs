@@ -7,7 +7,7 @@ namespace MikeyaWarehouse.Wpf.Configurations;
 /// </summary>
 public sealed class CommandLineOptions
 {
-    [Option('i', "incognito", Required = false, HelpText = "Private mode")]
-    public bool IsIncognitoModeEnabled { get; set; }
+    [Option('c', "console", Required = false, HelpText = "Open in console mode")]
+    public bool IsConsoleModeEnabled { get; set; }
 
 }

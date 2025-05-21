@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using MikeyaWarehouse.Wpf.Configurations;
 using MikeyaWarehouse.Wpf.ViewModels.Interfaces;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows;
 
 namespace MikeyaWarehouse.Wpf;
@@ -11,13 +12,19 @@ namespace MikeyaWarehouse.Wpf;
 internal class Program
 {
     private const int TimeoutSeconds = 3;
-
+    
     [STAThread]
     public static void Main(string[] args)
     {
+        Parsed<CommandLineOptions> parserResult = Parser.Default
+            .ParseArguments<CommandLineOptions>(args)
+            .Cast<Parsed<CommandLineOptions>>();
+        
         EnvLoader.Load();
 
-        using var mutex = new Mutex(true, Assembly.GetExecutingAssembly().FullName, out bool createdNew);
+        LaunchConsoleMode(parserResult.Value.IsConsoleModeEnabled);
+
+        using var mutex = new Mutex(true, Assembly.GetExecutingAssembly().FullName);
         try
         {
             if (!mutex.WaitOne(TimeSpan.FromSeconds(TimeoutSeconds), true))
@@ -31,14 +38,14 @@ internal class Program
             else
             {
                 using IHost host = CreateHostBuilder().Build();
-                SubscribeToDomainUnhandledExceptions();
-                string s = GetDatabaseConnectionEvironmentCredentials();
-                RunApplication(host);
+                SubscribeToDomainEvents();
+                RunWpfApplication(host);
             }
         }
         finally
         {
             mutex.ReleaseMutex();
+            FreeConsole();
         }
     }
 
@@ -51,7 +58,8 @@ internal class Program
                     .RegisterViewModels()
                     .RegisterViews();
             });
-    private static void SubscribeToDomainUnhandledExceptions() =>
+    private static void SubscribeToDomainEvents()
+    {
         AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
         {
             Exception ex = (Exception)args.ExceptionObject;
@@ -63,7 +71,9 @@ internal class Program
                 MessageBoxImage.Error);
         };
 
-    private static void RunApplication(IHost host)
+        AppDomain.CurrentDomain.ProcessExit += (s, e) => FreeConsole();
+    }
+    private static void RunWpfApplication(IHost host)
     {
         try
         {
@@ -79,20 +89,34 @@ internal class Program
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
-
-    private static string GetDatabaseConnectionEvironmentCredentials()
+    private static void LaunchConsoleMode(bool IsConsoleModeEnabled)
     {
-        var dbHost = Environment.GetEnvironmentVariable("DB_HOST") ?? "localhost";
-        var dbName = Environment.GetEnvironmentVariable("DB_NAME") ?? "appdb";
-        var dbUser = Environment.GetEnvironmentVariable("DB_USER") ?? "postgres";
-        var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD") ?? "password";
+        if (IsConsoleModeEnabled)
+        {
+            AllocConsole();
 
-        return
-            $"Host={dbHost};" +
-            $"Port=5432;" +
-            $"Database={dbName};" +
-            $"Username={dbUser};" +
-            $"Password={dbPassword}";
+            MessageBox.Show("You have console mode enabled");
+            Task.Run(() =>
+            {
+                while (true)
+                {
+                    string? input = Console.ReadLine();
+                    HandleConsoleCommand(input);
+                }
+            });
+        }
     }
+    private static void HandleConsoleCommand(string? input)
+    {
+        // TODO:
+        Console.WriteLine($"You`ve entered: {input}");
+    }
+
+
+    
+    [DllImport("Kernel32")]
+    public static extern void AllocConsole();
+    [DllImport("Kernel32", SetLastError = true)]
+    public static extern void FreeConsole();
 }
 
