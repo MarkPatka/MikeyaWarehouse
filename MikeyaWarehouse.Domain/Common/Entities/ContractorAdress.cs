@@ -1,10 +1,11 @@
 ﻿namespace MikeyaWarehouse.Domain.Common.Entities;
 
-public record Adress(
+public record ContractorAdress(
     int Id,
     string Street,
     string City,
     string State,
     string Country,
     string PostalCode,
-    GeoCoordinates? Coordinates);
+    GeoCoordinates? Coordinates,
+    int ContractorId);

@@ -12,8 +12,9 @@ public sealed class Pallet : AggregateRoot<PalletId>
     
     public IReadOnlyList<ProductBox> ProductBoxes => _boxes.AsReadOnly();
     public DateOnly Expires { get; }
-    public PalletType Type { get; } = PalletType.EURO_STANDARD;
     public Dimensions Dimensions { get; }
+    public PalletType Type { get; } = PalletType.EURO_STANDARD;
+    
     
     private Pallet(PalletId id, PalletType type)
         : base(id) => Type = type;

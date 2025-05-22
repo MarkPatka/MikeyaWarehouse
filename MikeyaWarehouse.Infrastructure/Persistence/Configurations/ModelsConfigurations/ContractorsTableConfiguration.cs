@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using MikeyaWarehouse.Domain.Common.Entities;
 using MikeyaWarehouse.Domain.ContractorsAggregate;
 using MikeyaWarehouse.Domain.ContractorsAggregate.ValueObjects;
+using System.Net;
 
 namespace MikeyaWarehouse.Infrastructure.Persistence.Configurations.ModelsConfigurations;
 
@@ -29,7 +31,20 @@ public class ContractorsTableConfiguration
         builder.Property<string>(x => x.Name)
             .HasMaxLength(256);
 
-        //builder.OwnsOne(x => x.Adress);
-        //builder.OwnsMany(x => x.ShipmentIds);
+        builder.HasOne(x => x.Adress)
+        .WithOne()
+            .HasForeignKey<ContractorAdress>(a => a.ContractorId)
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.OwnsMany(x => x.ShipmentIds, sb =>
+        {
+            sb.ToTable("ContractorShipments");
+            sb.WithOwner().HasForeignKey("ContractorId");
+            sb.HasKey(z => z.Value);
+
+            sb.Property(x => x.Value)
+                .HasColumnName("ShipmentId");
+        });
     }
 }

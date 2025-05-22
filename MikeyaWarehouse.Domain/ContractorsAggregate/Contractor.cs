@@ -11,15 +11,15 @@ public sealed class Contractor : AggregateRoot<ContractorId>
 
     public IReadOnlyList<ShipmentId> ShipmentIds => _shipmentIds.AsReadOnly();
     public string Name { get; } = null!;
-    public Adress Adress { get; }
+    public ContractorAdress Adress { get; }
 
-    private Contractor(ContractorId id, string name, Adress adress)
+    private Contractor(ContractorId id, string name, ContractorAdress adress)
         : base(id)
     {
         Name = name;
         Adress = adress;
     }
 
-    public static Contractor Create(int id, string name, Adress adress) =>
+    public static Contractor Create(int id, string name, ContractorAdress adress) =>
         new(ContractorId.Create(id), name, adress);
 }

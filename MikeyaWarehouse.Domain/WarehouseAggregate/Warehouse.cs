@@ -26,12 +26,12 @@ public sealed class Warehouse : AggregateRoot<WarehouseId>
     public IReadOnlyList<PalletId> PalletIds => _palletIds.AsReadOnly();
     public IReadOnlyList<ShipmentId> ShipmentIds => _shipmentIds.AsReadOnly();
 
-    public Adress Location { get; }
+    public ContractorAdress Location { get; }
     public string Name { get; } = null!;
 
-    private Warehouse(WarehouseId id, string name, Adress location)
+    private Warehouse(WarehouseId id, string name, ContractorAdress location)
         : base(id) => (Location, Name) = (location, name);
 
-    public static Warehouse Create(int id, string name, Adress location) =>
+    public static Warehouse Create(int id, string name, ContractorAdress location) =>
         new(WarehouseId.Create(id), name, location);
 }

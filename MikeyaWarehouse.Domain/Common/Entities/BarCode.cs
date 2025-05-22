@@ -2,4 +2,4 @@
 
 namespace MikeyaWarehouse.Domain.Common.ValueObjects;
 
-public record BarCode(int Id, string Text);
+public record BarCode(string Text);
