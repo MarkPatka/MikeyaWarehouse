@@ -2,8 +2,10 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using MikeyaWarehouse.Application;
 using MikeyaWarehouse.Infrastructure;
+using MikeyaWarehouse.Infrastructure.Persistence.Configurations;
 using MikeyaWarehouse.Wpf.Configurations;
 using MikeyaWarehouse.Wpf.ViewModels.Interfaces;
 using System.Reflection;
@@ -24,7 +26,8 @@ internal class Program
             .Cast<Parsed<CommandLineOptions>>();
         
         EnvLoader.Load();
-        LaunchConsoleMode(parserResult.Value.IsConsoleModeEnabled);
+        if (parserResult.Value.IsConsoleModeEnabled) 
+            LaunchConsoleMode();
 
         using var mutex = new Mutex(true, Assembly.GetExecutingAssembly().FullName);
         try
@@ -40,8 +43,6 @@ internal class Program
             else
             {
                 using IHost host = CreateHostBuilder().Build();
-                var dbHost = Environment.GetEnvironmentVariable("DB_HOST") ?? "A";
-
                 SubscribeToDomainEvents();
                 RunWpfApplication(host);
             }
@@ -93,22 +94,19 @@ internal class Program
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
-    private static void LaunchConsoleMode(bool IsConsoleModeEnabled)
+    private static void LaunchConsoleMode()
     {
-        if (IsConsoleModeEnabled)
-        {
-            AllocConsole();
+        AllocConsole();
 
-            MessageBox.Show("You have console mode enabled");
-            Task.Run(() =>
+        MessageBox.Show("You have console mode enabled");
+        Task.Run(() =>
+        {
+            while (true)
             {
-                while (true)
-                {
-                    string? input = Console.ReadLine();
-                    HandleConsoleCommand(input);
-                }
-            });
-        }
+                string? input = Console.ReadLine();
+                HandleConsoleCommand(input);
+            }
+        });
     }
     private static void HandleConsoleCommand(string? input)
     {

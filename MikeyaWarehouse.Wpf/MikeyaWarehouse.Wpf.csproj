@@ -16,6 +16,13 @@
     <ProjectReference Include="..\MikeyaWarehouse.Infrastructure\MikeyaWarehouse.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+  	<None Update=".env">
+  		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  	</None>
+  </ItemGroup>
+	
+	
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net9.0-windows</TargetFramework>
