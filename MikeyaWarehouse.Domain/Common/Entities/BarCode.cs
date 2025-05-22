@@ -2,7 +2,4 @@
 
 namespace MikeyaWarehouse.Domain.Common.ValueObjects;
 
-public readonly record struct BarCode
-{
-    public string Text { get; init; }
-}
+public record BarCode(int Id, string Text);

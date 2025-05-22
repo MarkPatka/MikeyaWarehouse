@@ -3,7 +3,6 @@ using MikeyaWarehouse.Domain.Common.ValueObjects;
 using MikeyaWarehouse.Domain.PalletAggregate.Entities;
 using MikeyaWarehouse.Domain.PalletAggregate.Enumerations;
 using MikeyaWarehouse.Domain.PalletAggregate.ValueObjects;
-using MikeyaWarehouse.Domain.Common.Entities;
 
 namespace MikeyaWarehouse.Domain.PalletAggregate;
 

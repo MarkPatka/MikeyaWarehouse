@@ -2,9 +2,8 @@
 
 namespace MikeyaWarehouse.Domain.Common.Entities;
 
-public readonly record struct ClimatRegime
-{
-    public TemperatureRange TemperatureRange { get; init; }
-    public HumidityRange HumidityRange { get; init; }
+public record ClimatRegime(
+    int Id,
+    TemperatureRange TemperatureRange,
+    HumidityRange HumidityRange);
 
-}

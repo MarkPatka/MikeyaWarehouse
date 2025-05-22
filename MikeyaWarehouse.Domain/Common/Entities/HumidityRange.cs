@@ -1,7 +1,6 @@
 ﻿namespace MikeyaWarehouse.Domain.Common.ValueObjects;
 
-public readonly record struct HumidityRange
-{
-    public double Min { get; init; }
-    public double Max { get; init; }
-}
+public record HumidityRange(
+    int Id,
+    double Min,
+    double Max);
