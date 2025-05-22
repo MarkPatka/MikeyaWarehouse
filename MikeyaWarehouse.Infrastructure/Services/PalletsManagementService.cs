@@ -1,4 +1,5 @@
 ﻿using MikeyaWarehouse.Application.Common.Services;
+using MikeyaWarehouse.Domain.Common.Extensions;
 using MikeyaWarehouse.Domain.PalletAggregate;
 using MikeyaWarehouse.Infrastructure.Helpers;
 
@@ -19,11 +20,8 @@ public class PalletsManagementService
             .Distinct<DateOnly>(elements);
 
         // Sorting keys
-        var comparer = GenericAlgorithms
-            .GetComparer<DateOnly>(direction);
-
         GenericAlgorithms
-            .InsertionSort<DateOnly>(unicDates, comparer);
+            .InsertionSort<DateOnly>(unicDates, direction);
 
         // Group pallets by keys
         Dictionary<DateOnly, List<Pallet>> groups = unicDates
@@ -42,7 +40,8 @@ public class PalletsManagementService
         return groups;
     }
 
-    public Pallet[] GetSortedPalletsWithTheBoxOfTheMostExpireDate(Pallet[] pallets, int count = 3)
+    public Pallet[] SortPalletsByExpirationDate(
+        Pallet[] pallets, int count = 3)
     {
         Pallet[] result = new Pallet[count];
         
@@ -50,9 +49,9 @@ public class PalletsManagementService
             return [];
 
         if (pallets.Length <= count)
-            return [.. pallets.OrderByDescending(p => p.Dimensions.Volume)];
+            return [.. pallets.OrderBy(p => p.Dimensions.Volume)];
         
-        // init first n elements as they go in the initial array
+        // init first n elements as they`re presented in the initial array
         int i = count;
         while (i > 0) 
         {
@@ -67,7 +66,7 @@ public class PalletsManagementService
         for (; i < pallets.Length; i++)
         {
             // if current pallet expire > current min (from max elements) expire replace it
-            DateOnly expire = pallets[i].GetMaxExpireDate();
+            DateOnly expire = PalletExtensions.GetMaxExpireDate(pallets[i]);
             if (expire > currentMinExpire)
             {
                 result[minIndex] = pallets[i];
@@ -77,8 +76,10 @@ public class PalletsManagementService
             }
         }
         // to avoid overhead of separate sorting algorithms
-        return [.. result.OrderByDescending(p => p.Dimensions.Volume)];
+        return [.. result.OrderBy(p => p.Dimensions.Volume)];
     }
+  
+    
     private static int GetIndexPalletWithTheBoxOfMinExpireDate(Pallet[] pallets)
     {
         int min = 0;
@@ -93,7 +94,6 @@ public class PalletsManagementService
 
         return min;
     }
-    
     private static void SortPalletsByWeight(Pallet[] arr)
     {
         if (arr.Length <= 1) return;

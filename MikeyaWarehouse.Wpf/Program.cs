@@ -1,6 +1,9 @@
 ﻿using CommandLine;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MikeyaWarehouse.Application;
+using MikeyaWarehouse.Infrastructure;
 using MikeyaWarehouse.Wpf.Configurations;
 using MikeyaWarehouse.Wpf.ViewModels.Interfaces;
 using System.Reflection;
@@ -21,7 +24,6 @@ internal class Program
             .Cast<Parsed<CommandLineOptions>>();
         
         EnvLoader.Load();
-
         LaunchConsoleMode(parserResult.Value.IsConsoleModeEnabled);
 
         using var mutex = new Mutex(true, Assembly.GetExecutingAssembly().FullName);
@@ -38,6 +40,8 @@ internal class Program
             else
             {
                 using IHost host = CreateHostBuilder().Build();
+                var dbHost = Environment.GetEnvironmentVariable("DB_HOST") ?? "A";
+
                 SubscribeToDomainEvents();
                 RunWpfApplication(host);
             }
@@ -54,9 +58,9 @@ internal class Program
             .ConfigureServices((context, services) =>
             {
                 services
-                    .AddConfiguration()
-                    .RegisterViewModels()
-                    .RegisterViews();
+                    .AddPresentation()
+                    .AddApplication()
+                    .AddInfrastructure();
             });
     private static void SubscribeToDomainEvents()
     {

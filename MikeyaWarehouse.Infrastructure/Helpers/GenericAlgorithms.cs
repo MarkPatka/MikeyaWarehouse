@@ -18,9 +18,10 @@ public static class GenericAlgorithms
     }
 
     public static void InsertionSort<T>(
-        IEnumerable<T> unicDates, Comparison<T> comparer)
+        IEnumerable<T> unicDates, string direction = "ASC")
         where T : IComparable
     {
+        var comparer = GetComparer<T>(direction);
         var list = unicDates.ToList();
         int n = list.Count;
         for (int i = 1; i < n; i++)

@@ -1,10 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <None Remove=".env" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Errors\" />
     <Folder Include="Models\" />
   </ItemGroup>
@@ -20,25 +16,13 @@
     <ProjectReference Include="..\MikeyaWarehouse.Infrastructure\MikeyaWarehouse.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Resource Include=".env">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
-  	<None Update=".env">
-  		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-  	</None>
-  </ItemGroup>
-	
-	
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net9.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
 </Project>

@@ -8,7 +8,18 @@ namespace MikeyaWarehouse.Wpf;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddConfiguration(this IServiceCollection services)
+    public static IServiceCollection AddPresentation(this IServiceCollection services)
+    {
+        services
+            .AddConfiguration()
+            .RegisterViewModels()
+            .RegisterViews();
+    
+        return services;
+    }
+
+
+    private static IServiceCollection AddConfiguration(this IServiceCollection services)
     {
         var configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
@@ -20,12 +31,12 @@ public static class DependencyInjection
         return services;
     }
 
-    public static IServiceCollection RegisterViews(this IServiceCollection services)
+    private static IServiceCollection RegisterViews(this IServiceCollection services)
     {
         services.AddSingleton<MainWindow>();
         return services;
     }
-    public static IServiceCollection RegisterViewModels(this IServiceCollection services)
+    private static IServiceCollection RegisterViewModels(this IServiceCollection services)
     {
         services.AddSingleton<IMainViewModel, MainViewModel>();
         return services;

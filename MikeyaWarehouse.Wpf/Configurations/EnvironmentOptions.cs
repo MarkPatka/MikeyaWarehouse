@@ -14,8 +14,8 @@ public static class EnvLoader
 
         try
         {
-            Env.Load(Path.Combine(
-                Directory.GetCurrentDirectory(), fileName));
+            string path = Path.Combine("..\\MikeyaWarehouse\\", fileName);
+            Env.Load(path);
 
             _loaded = true;
         }
