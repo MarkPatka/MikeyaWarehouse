@@ -1,7 +1,6 @@
 ﻿using MikeyaWarehouse.Domain.Common.Abstract;
-using MikeyaWarehouse.Domain.WarehouseAggregate.Enumerations;
 
-namespace MikeyaWarehouse.Domain.ProductAggregate.Enumerations;
+namespace MikeyaWarehouse.Domain.PalletAggregate.Enumerations;
 
 public sealed class ProductStatus(int id, string name, string? description = null)
     : Enumeration(id, name, description)

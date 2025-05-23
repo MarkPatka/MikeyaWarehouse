@@ -1,7 +1,7 @@
 ﻿using MikeyaWarehouse.Domain.Common.Abstract;
 using System.Text;
 
-namespace MikeyaWarehouse.Domain.ShipmentAggregate.Enumerations;
+namespace MikeyaWarehouse.Domain.ContractorsAggregate.Enumerations;
 public sealed class ShipmentStatus(int id, string name, string? description = null)
     : Enumeration(id, name, description)
 {

@@ -1,4 +1,4 @@
-﻿using MikeyaWarehouse.Domain.ShipmentAggregate;
+﻿using MikeyaWarehouse.Domain.ContractorsAggregate.Entities;
 using MikeyaWarehouse.Domain.WarehouseAggregate;
 
 namespace MikeyaWarehouse.Application.Common.Persistence;

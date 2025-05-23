@@ -1,19 +1,20 @@
 ﻿using MikeyaWarehouse.Domain.Common.Abstract;
+using MikeyaWarehouse.Domain.WarehouseAggregate.ValueObjects;
 
 namespace MikeyaWarehouse.Domain.ContractorsAggregate.ValueObjects;
 
-public sealed class ContractorId : ValueObject
+public class ContractorAdressId : ValueObject
 {
     public int Value { get; }
 
-    private ContractorId(int value)
+    private ContractorAdressId(int value)
     {
         Value = value;
     }
 
-    public static ContractorId Create(int value)
+    public static ContractorAdressId Create(int id)
     {
-        return new ContractorId(value);
+        return new ContractorAdressId(id);
     }
 
     public override IEnumerable<object> GetEqualityComponents()

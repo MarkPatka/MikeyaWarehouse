@@ -1,6 +1,6 @@
 ﻿using MikeyaWarehouse.Domain.Common.Abstract;
 
-namespace MikeyaWarehouse.Domain.ShipmentAggregate.ValueObjects;
+namespace MikeyaWarehouse.Domain.ContractorsAggregate.ValueObjects;
 
 public sealed class ShipmentId : ValueObject
 {

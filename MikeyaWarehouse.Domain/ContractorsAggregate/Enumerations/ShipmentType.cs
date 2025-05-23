@@ -1,6 +1,6 @@
 ﻿using MikeyaWarehouse.Domain.Common.Abstract;
 
-namespace MikeyaWarehouse.Domain.ShipmentAggregate.Enumerations;
+namespace MikeyaWarehouse.Domain.ContractorsAggregate.Enumerations;
 
 public sealed class ShipmentType(int id, string name, string? description = null)
     : Enumeration(id, name, description)

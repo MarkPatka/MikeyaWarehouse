@@ -1,46 +1,46 @@
 ﻿using MikeyaWarehouse.Domain.Common.Abstract;
 using MikeyaWarehouse.Domain.Common.ValueObjects;
+using MikeyaWarehouse.Domain.PalletAggregate.Enumerations;
 using MikeyaWarehouse.Domain.PalletAggregate.ValueObjects;
-using MikeyaWarehouse.Domain.ProductAggregate.ValueObjects;
 
 namespace MikeyaWarehouse.Domain.PalletAggregate.Entities;
 
 public class ProductBox : Entity<ProductBoxId>
 {
-    public ProductId BoxedProductId { get; }
-    public int Quantity { get; }
+    private readonly List<Product> _products = [];
+    public IReadOnlyList<Product> Products => _products.AsReadOnly();
+    
+    public int InBoxProductQuantity => _products.Count;
     public Dimensions Dimensions { get; }
     public DateOnly Expire { get; }
     public DateOnly Production { get; }
     public BarCode Code { get; }
-
+    public BoxStatus BoxStatus { get; }
+    
     private ProductBox(
         ProductBoxId id, 
-        ProductId productId,
-        int productQuantity,
         Dimensions dimensions, 
         DateOnly expire,
         DateOnly production, 
-        BarCode code) 
+        BarCode code,
+        BoxStatus boxStatus) 
         : base(id)
     {
-        BoxedProductId = productId;
-        Quantity = productQuantity;
         Dimensions = dimensions;
         Expire = expire;
         Production = production;
         Code = code;
+        BoxStatus = boxStatus;
     }
 
     public static ProductBox Create(
-        ProductId productId,
-        int productQuantity,
         Dimensions dimensions,
         DateOnly expire,
         DateOnly production,
-        BarCode code)
+        BarCode code,
+        BoxStatus boxStatus)
     {
         return new(ProductBoxId.Create(Guid.NewGuid()), 
-            productId, productQuantity, dimensions, expire, production, code);
+            dimensions, expire, production, code, boxStatus);
     }
 }

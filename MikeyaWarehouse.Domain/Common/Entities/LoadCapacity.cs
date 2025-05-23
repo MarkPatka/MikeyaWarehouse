@@ -1,5 +1,5 @@
-﻿namespace MikeyaWarehouse.Domain.Common.ValueObjects;
+﻿namespace MikeyaWarehouse.Domain.Common.Entities;
 
-public record LoadCapacity(int Id,
+public record LoadCapacity(
     double MaxWeight,
     double MaxVolume);

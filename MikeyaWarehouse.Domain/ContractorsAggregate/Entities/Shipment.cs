@@ -1,18 +1,16 @@
 ﻿using MikeyaWarehouse.Domain.Common.Abstract;
+using MikeyaWarehouse.Domain.ContractorsAggregate.Enumerations;
 using MikeyaWarehouse.Domain.ContractorsAggregate.ValueObjects;
+using MikeyaWarehouse.Domain.PalletAggregate;
 using MikeyaWarehouse.Domain.PalletAggregate.ValueObjects;
-using MikeyaWarehouse.Domain.ShipmentAggregate.Enumerations;
-using MikeyaWarehouse.Domain.ShipmentAggregate.ValueObjects;
 
-namespace MikeyaWarehouse.Domain.ShipmentAggregate;
+namespace MikeyaWarehouse.Domain.ContractorsAggregate.Entities;
 
-public sealed class Shipment : AggregateRoot<ShipmentId>
+public sealed class Shipment : Entity<ShipmentId>
 {
     private readonly List<PalletId> _pallets = [];
-
-    public IReadOnlyList<PalletId> Pallets => _pallets.AsReadOnly();
+    public IReadOnlyList<PalletId> PalletIds => _pallets.AsReadOnly();
     
-    public ContractorId ContractorId { get; }
     public ShipmentType Type { get; }
     public ShipmentStatus Status { get; }
     public DateTime Requested { get; }
@@ -20,14 +18,12 @@ public sealed class Shipment : AggregateRoot<ShipmentId>
 
     private Shipment(
         ShipmentId id,
-        ContractorId contractorId,
         ShipmentType type,
         ShipmentStatus status,
         DateTime requested,
         DateTime? accomplished = null)
         : base(id)
     {
-        ContractorId = contractorId;
         Type = type;
         Status = status;
         Requested = requested;
@@ -35,14 +31,12 @@ public sealed class Shipment : AggregateRoot<ShipmentId>
     }
 
     public static Shipment Create(
-        ContractorId contracor, 
         ShipmentType type, 
         ShipmentStatus status, 
         DateTime req, 
         DateTime? end)
     {
-        return new(ShipmentId.CreateNew(), 
-            contracor, type, status, req, end);
+        return new(ShipmentId.CreateNew(), type, status, req, end);
     }
 
 }

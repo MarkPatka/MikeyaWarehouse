@@ -21,13 +21,14 @@ internal class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        Parsed<CommandLineOptions> parserResult = Parser.Default
-            .ParseArguments<CommandLineOptions>(args)
-            .Cast<Parsed<CommandLineOptions>>();
+        //Parsed<CommandLineOptions> parserResult = Parser.Default
+        //    .ParseArguments<CommandLineOptions>(args)
+        //    .Cast<Parsed<CommandLineOptions>>();
         
         EnvLoader.Load();
-        if (parserResult.Value.IsConsoleModeEnabled) 
-            LaunchConsoleMode();
+
+        //if (parserResult.Value.IsConsoleModeEnabled) 
+        //    LaunchConsoleMode();
 
         using var mutex = new Mutex(true, Assembly.GetExecutingAssembly().FullName);
         try

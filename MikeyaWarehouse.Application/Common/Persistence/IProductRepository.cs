@@ -1,4 +1,4 @@
-﻿using MikeyaWarehouse.Domain.ProductAggregate;
+﻿using MikeyaWarehouse.Domain.PalletAggregate.Entities;
 using MikeyaWarehouse.Domain.WarehouseAggregate;
 
 namespace MikeyaWarehouse.Application.Common.Persistence;

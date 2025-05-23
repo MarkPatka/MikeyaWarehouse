@@ -5,9 +5,10 @@ namespace MikeyaWarehouse.Domain.WarehouseAggregate.Entities;
 
 public sealed class StorageSection : Entity<StorageSectionId>
 {
-    private readonly List<StorageBin[]> _bins = [];
-    public int Shells => _bins.Count;
-    public IReadOnlyList<StorageBin[]> StorageBins => _bins.AsReadOnly();
+    private readonly List<StorageBin> _bins = [];
+    public IReadOnlyList<StorageBin> StorageBins => _bins.AsReadOnly();
+
+    public int Shells { get; }
 
     private StorageSection(StorageSectionId id)
         : base(id)

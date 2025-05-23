@@ -7,9 +7,10 @@ namespace MikeyaWarehouse.Domain.WarehouseAggregate.Entities;
 public sealed class StorageZone : Entity<StorageZoneId>
 {
     private readonly List<StorageRack> _racks = [];
+    public IReadOnlyList<StorageRack> StorageRacks => _racks.AsReadOnly();
+
     public ClimatRegime Regime { get; }
     public char Code { get; }
-    public IReadOnlyList<StorageRack> Racks => _racks.AsReadOnly();
 
     private StorageZone(
         StorageZoneId id, 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MikeyaWarehouse.Application.Common.Persistence;
-using MikeyaWarehouse.Domain.ProductAggregate;
+using MikeyaWarehouse.Domain.PalletAggregate.Entities;
 
 namespace MikeyaWarehouse.Infrastructure.Persistence.Repositories;
 

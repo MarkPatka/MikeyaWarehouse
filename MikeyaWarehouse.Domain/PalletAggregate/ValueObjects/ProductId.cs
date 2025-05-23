@@ -1,7 +1,6 @@
-﻿
-using MikeyaWarehouse.Domain.Common.Abstract;
+﻿using MikeyaWarehouse.Domain.Common.Abstract;
 
-namespace MikeyaWarehouse.Domain.ProductAggregate.ValueObjects;
+namespace MikeyaWarehouse.Domain.PalletAggregate.ValueObjects;
 
 public sealed class ProductId : ValueObject
 {

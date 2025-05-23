@@ -1,4 +1,5 @@
 ﻿using MikeyaWarehouse.Domain.Common.Abstract;
+using MikeyaWarehouse.Domain.Common.Entities;
 using MikeyaWarehouse.Domain.Common.ValueObjects;
 using MikeyaWarehouse.Domain.WarehouseAggregate.Enumerations;
 using MikeyaWarehouse.Domain.WarehouseAggregate.ValueObjects;

@@ -1,15 +1,14 @@
 ﻿using MikeyaWarehouse.Domain.Common.Abstract;
-using MikeyaWarehouse.Domain.Common.Entities;
+using MikeyaWarehouse.Domain.ContractorsAggregate.Entities;
 using MikeyaWarehouse.Domain.ContractorsAggregate.ValueObjects;
-using MikeyaWarehouse.Domain.ShipmentAggregate.ValueObjects;
 
 namespace MikeyaWarehouse.Domain.ContractorsAggregate;
 
 public sealed class Contractor : AggregateRoot<ContractorId>
 {
-    private readonly List<ShipmentId> _shipmentIds = [];
-
-    public IReadOnlyList<ShipmentId> ShipmentIds => _shipmentIds.AsReadOnly();
+    private readonly List<Shipment> _shipments = [];
+    public IReadOnlyList<Shipment> Shipments => _shipments.AsReadOnly();
+    
     public string Name { get; } = null!;
     public ContractorAdress Adress { get; }
 
