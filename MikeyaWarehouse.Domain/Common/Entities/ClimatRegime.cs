@@ -2,7 +2,19 @@
 
 namespace MikeyaWarehouse.Domain.Common.Entities;
 
-public record ClimatRegime(
-    TemperatureRange TemperatureRange,
-    HumidityRange HumidityRange);
+
+public class ClimatRegime
+{
+    public TemperatureRange TemperatureRange { get; set; }
+    public HumidityRange HumidityRange { get; set; }
+
+    private ClimatRegime() { }
+
+    public ClimatRegime(TemperatureRange temperatureRange, HumidityRange humidityRange)
+    {
+        TemperatureRange = temperatureRange;
+        HumidityRange = humidityRange;
+    }
+}
+
 

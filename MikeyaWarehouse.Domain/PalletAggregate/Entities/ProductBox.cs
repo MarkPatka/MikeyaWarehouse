@@ -16,7 +16,13 @@ public class ProductBox : Entity<ProductBoxId>
     public DateOnly Production { get; }
     public BarCode Code { get; }
     public BoxStatus BoxStatus { get; }
-    
+
+    private ProductBox()
+    {
+        
+
+    }
+
     private ProductBox(
         ProductBoxId id, 
         Dimensions dimensions, 

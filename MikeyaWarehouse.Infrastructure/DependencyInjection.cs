@@ -3,12 +3,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using MikeyaWarehouse.Application.Common.Persistence;
 using MikeyaWarehouse.Application.Common.Services;
 using MikeyaWarehouse.Infrastructure.Persistence;
 using MikeyaWarehouse.Infrastructure.Persistence.Configurations;
+using MikeyaWarehouse.Infrastructure.Persistence.Repositories;
 using MikeyaWarehouse.Infrastructure.Services;
-using System;
-using System.Reflection.Metadata;
 
 namespace MikeyaWarehouse.Infrastructure;
 
@@ -18,6 +18,7 @@ public static class DependencyInjection
     {
         services
             .RegisterDbContext()
+            .RegisterRepositories()
             .RegisterServices()
             ;
 
@@ -42,6 +43,13 @@ public static class DependencyInjection
     private static IServiceCollection RegisterRepositories(this IServiceCollection services)
     {
 
+        services
+            .AddScoped<IContractorsRepository, ContractorsRepository>()
+            .AddScoped<IPalletsRepository, PalletsRepository>()
+            .AddScoped<IProductsRepository, ProductsRepository>()
+            .AddScoped<IShipmentsRepository, ShipmentsRepository>()
+            .AddScoped<IWarehousesRepository, WarehousesRepository>();
+        
         return services;
     }
 

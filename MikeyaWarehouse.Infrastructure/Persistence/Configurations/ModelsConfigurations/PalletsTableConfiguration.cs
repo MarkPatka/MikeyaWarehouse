@@ -91,8 +91,9 @@ public class PalletsTableConfiguration
             pb.OwnsMany(x => x.Products, ptb =>
             {
                 ptb.ToTable("Products");
-                ptb.WithOwner().HasForeignKey("ProductBoxId, PalletId");
-                ptb.HasKey(nameof(Product.Id), "ProductBoxId, PalletId");
+                ptb.Property<Guid>("ProductBoxId");
+                ptb.WithOwner().HasForeignKey("ProductBoxId", "PalletId");
+                ptb.HasKey(nameof(Product.Id), "ProductBoxId", "PalletId");
 
                 ptb.Property(x => x.Id)
                     .HasColumnName("ProductId")
@@ -119,13 +120,14 @@ public class PalletsTableConfiguration
                     c.Property(d => d.Text).HasColumnName("BarCode");
                 });
 
-                pb.OwnsOne(x => x.Dimensions, d =>
+                ptb.OwnsOne(x => x.Dimensions, d =>
                 {
                     d.Property(d => d.Length).HasColumnName("Length");
                     d.Property(d => d.Width).HasColumnName("Width");
                     d.Property(d => d.Height).HasColumnName("Height");
                     d.Property(d => d.Weight).HasColumnName("Weight");
                 });
+               
             });
 
             pb.Navigation(x => x.Products).Metadata

@@ -10,6 +10,11 @@ public sealed class StorageSection : Entity<StorageSectionId>
 
     public int Shells { get; }
 
+    private StorageSection()
+    {
+        
+    }
+
     private StorageSection(StorageSectionId id)
         : base(id)
     { }

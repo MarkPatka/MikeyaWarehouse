@@ -2,6 +2,6 @@
 
 namespace MikeyaWarehouse.Application.Common.Persistence;
 
-public interface IWarehouseRepository : IGenericRepository<Warehouse>
+public interface IWarehousesRepository : IGenericRepository<Warehouse>
 {
 }

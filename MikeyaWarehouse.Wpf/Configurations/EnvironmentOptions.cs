@@ -27,7 +27,7 @@ public static class EnvLoader
         }
     }
 
-    public static string? Get(string key, string? defaultValue = null)
+    public static string Get(string key, string defaultValue = "")
     {
         string path = Path.Combine(Directory.GetCurrentDirectory(), ".env");
         if (!_loaded) Load(path);

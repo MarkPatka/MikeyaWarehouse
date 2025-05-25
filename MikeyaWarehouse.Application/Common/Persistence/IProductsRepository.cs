@@ -3,6 +3,6 @@ using MikeyaWarehouse.Domain.WarehouseAggregate;
 
 namespace MikeyaWarehouse.Application.Common.Persistence;
 
-public interface IProductRepository : IGenericRepository<Product>
+public interface IProductsRepository : IGenericRepository<Product>
 {
 }

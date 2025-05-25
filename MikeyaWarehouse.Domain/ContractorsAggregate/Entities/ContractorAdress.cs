@@ -13,6 +13,8 @@ public class ContractorAdress : Entity<ContractorAdressId>
     public string PostalCode { get; }
     public GeoCoordinates? Coordinates { get; }
 
+    private ContractorAdress() { }
+
     private ContractorAdress(
         ContractorAdressId id,
         string street,

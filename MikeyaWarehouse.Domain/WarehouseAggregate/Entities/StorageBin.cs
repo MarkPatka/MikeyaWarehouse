@@ -22,6 +22,12 @@ public sealed class StorageBin : Entity<StorageBinId>
     public Dimensions Dimensions { get; }
     public LoadCapacity LoadCapacity { get; }
 
+
+    private StorageBin()
+    {
+        
+    }
+
     private StorageBin(
         StorageBinId id,
         PalletId? palletId,

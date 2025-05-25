@@ -18,13 +18,17 @@ public class MikeyaWarehouseDbContext : DbContext
 
     public MikeyaWarehouseDbContext(
         DbContextOptions<MikeyaWarehouseDbContext> options)
-        : base(options) { }
+        : base(options) 
+    {
+        Database.EnsureCreated();
+        
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new ContractorsTableConfiguration());
         modelBuilder.ApplyConfiguration(new PalletsTableConfiguration());
         modelBuilder.ApplyConfiguration(new WarehousesTableConfiguration());
+        modelBuilder.ApplyConfiguration(new ContractorsTableConfiguration());
 
 
         base.OnModelCreating(modelBuilder);

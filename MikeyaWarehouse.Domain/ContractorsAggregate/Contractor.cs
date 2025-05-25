@@ -12,6 +12,11 @@ public sealed class Contractor : AggregateRoot<ContractorId>
     public string Name { get; } = null!;
     public ContractorAdress Adress { get; }
 
+    private Contractor()
+    {
+        
+    }
+
     private Contractor(ContractorId id, string name, ContractorAdress adress)
         : base(id)
     {

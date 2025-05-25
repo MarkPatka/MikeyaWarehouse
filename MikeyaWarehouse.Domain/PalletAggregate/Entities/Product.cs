@@ -13,6 +13,13 @@ public sealed class Product : Entity<ProductId>
     public BarCode BarCode { get; }
     public Dimensions Dimensions { get; }
 
+
+    private Product()
+    {
+        
+    }
+
+
     private Product(ProductId id, 
         string name, int inStock, DateOnly production, DateOnly expires, 
         BarCode code, Dimensions dimensions)

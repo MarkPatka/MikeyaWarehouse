@@ -12,6 +12,10 @@ public sealed class StorageZone : Entity<StorageZoneId>
     public ClimatRegime Regime { get; }
     public char Code { get; }
 
+    private StorageZone()
+    {
+        
+    }
     private StorageZone(
         StorageZoneId id, 
         ClimatRegime regime, 

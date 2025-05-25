@@ -1,6 +1,3 @@
 ﻿namespace MikeyaWarehouse.Domain.Common.Entities;
 
-public record GeoCoordinates(
-    int Id,
-    double Latitude,
-    double Longitude);
+public record GeoCoordinates(double Latitude, double Longitude);

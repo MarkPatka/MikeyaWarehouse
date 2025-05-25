@@ -15,7 +15,6 @@ public class ContractorsTableConfiguration
     {
         ConfigureContractorsTable(builder);
         ConfigureShipmentsTable(builder);
-        ConfigureContractorsAdressesTable(builder);
     }
 
     private static void ConfigureContractorsTable(
@@ -34,7 +33,41 @@ public class ContractorsTableConfiguration
 
         builder.Property(x => x.Name)
             .HasMaxLength(100);
-        
+
+        builder.OwnsOne(x => x.Adress, ab =>
+        {
+            ab.ToTable("ContractorsAdresses");
+            ab.WithOwner().HasForeignKey("ContractorId");
+            ab.HasKey(nameof(ContractorAdress.Id), "ContractorId");
+
+            ab.Property(x => x.Id)
+                .HasColumnName("ContractorAdressId")
+                .ValueGeneratedNever()
+                .HasConversion(
+                    id => id.Value,
+                    value => ContractorAdressId.Create(value));
+
+            ab.Property(x => x.Street)
+                .HasMaxLength(100);
+
+            ab.Property(x => x.City)
+                .HasMaxLength(100);
+
+            ab.Property(x => x.State)
+                .HasMaxLength(100);
+
+            ab.Property(x => x.PostalCode)
+                .HasMaxLength(20);
+
+            ab.OwnsOne(x => x.Coordinates, c =>
+            {
+                c.Property(d => d.Latitude).HasColumnName("Latitude");
+                c.Property(d => d.Longitude).HasColumnName("Longitude");
+            });
+
+            ab.Navigation(o => o.Coordinates).IsRequired(false);
+        });
+
         builder.Metadata.FindNavigation(nameof(Contractor.Shipments))!
             .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
@@ -71,6 +104,7 @@ public class ContractorsTableConfiguration
 
                 pid.WithOwner().HasForeignKey("ShipmentId", "ContractorId");
 
+                pid.Property<int>("Id");
                 pid.HasKey("Id");
 
                 pid.Property(p => p.Value)
@@ -83,44 +117,6 @@ public class ContractorsTableConfiguration
             
             sb.Navigation(s => s.PalletIds)
                 .UsePropertyAccessMode(PropertyAccessMode.Field);
-        });
-    }
-
-    private static void ConfigureContractorsAdressesTable(
-        EntityTypeBuilder<Contractor> builder)
-    {
-        builder.OwnsOne(x => x.Adress, ab =>
-        {
-            ab.ToTable("ContractorsAdresses");
-            ab.WithOwner().HasForeignKey("ContractorId");
-            ab.HasKey(nameof(ContractorAdress.Id), "ContractorId");
-
-            ab.Property(x => x.Id)
-                .HasColumnName("ContractorAdressId")
-                .ValueGeneratedNever()
-                .HasConversion(
-                    id => id.Value,
-                    value => ContractorAdressId.Create(value));
-
-            ab.Property(x => x.Street)
-                .HasMaxLength(100);
-
-            ab.Property(x => x.City)
-                .HasMaxLength(100);
-
-            ab.Property(x => x.State)
-                .HasMaxLength(100);
-
-            ab.Property(x => x.PostalCode)
-                .HasMaxLength(20);
-
-            ab.OwnsOne(x => x.Coordinates, c =>
-            {
-                c.Property(d => d.Latitude).HasColumnName("Latitude");
-                c.Property(d => d.Longitude).HasColumnName("Longitude");
-            });
-
-            ab.Navigation(o => o.Coordinates).IsRequired(false);
         });
     }
 

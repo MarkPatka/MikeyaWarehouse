@@ -10,10 +10,14 @@
   <ItemGroup>
     <ProjectReference Include="..\MikeyaWarehouse.Application\MikeyaWarehouse.Application.csproj" />
   </ItemGroup>
-
+	
+  <PropertyGroup>
+  </PropertyGroup>
+	
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
+	<EnableEfCoreDesignTimeServices>true</EnableEfCoreDesignTimeServices>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 

@@ -12,6 +12,14 @@ public sealed class BufferZone : Entity<BufferZoneId>
     public Dimensions Dimensions { get; }
     public BufferZoneStatus Status { get; } = BufferZoneStatus.EMPTY;
 
+
+
+    private BufferZone()
+    {
+        
+    }
+
+
     private BufferZone(
         BufferZoneId id,
         LoadCapacity loadCapacity,

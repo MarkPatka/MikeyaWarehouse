@@ -14,7 +14,13 @@ public sealed class Pallet : AggregateRoot<PalletId>
     public DateOnly Expires { get; }
     public Dimensions Dimensions { get; } = null!;
     public PalletType Type { get; } = PalletType.EURO_STANDARD;
-    
+
+
+    private Pallet()
+    {
+        
+    }
+
     private Pallet(PalletId id, PalletType type)
         : base(id) => Type = type;
 

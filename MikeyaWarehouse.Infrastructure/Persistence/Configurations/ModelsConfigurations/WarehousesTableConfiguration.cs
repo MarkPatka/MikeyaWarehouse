@@ -87,7 +87,6 @@ public class WarehousesTableConfiguration
     {
         builder.OwnsMany(x => x.StorageZones, szb =>
         {
-
             szb.ToTable("StorageZones");
             szb.WithOwner().HasForeignKey("WarehouseId");
 
@@ -199,6 +198,7 @@ public class WarehousesTableConfiguration
                             pid.WithOwner().HasForeignKey(
                                 "StorageBinId", "StorageSectionId", "StorageRackId", "StorageZoneId", "WarehouseId");
 
+                            pid.Property<int>("Id");
                             pid.HasKey("Id");
 
                             pid.Property(d => d.Value)
@@ -214,6 +214,7 @@ public class WarehousesTableConfiguration
                             b.WithOwner().HasForeignKey(
                                 "StorageBinId", "StorageSectionId", "StorageRackId", "StorageZoneId", "WarehouseId");
                             
+                            b.Property<int>("Id");
                             b.HasKey("Id");
 
                             b.Property(x => x.Value)

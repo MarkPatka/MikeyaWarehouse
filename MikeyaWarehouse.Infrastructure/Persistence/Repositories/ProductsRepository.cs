@@ -4,12 +4,12 @@ using MikeyaWarehouse.Domain.PalletAggregate.Entities;
 
 namespace MikeyaWarehouse.Infrastructure.Persistence.Repositories;
 
-public class ProductRepository : GenericRepository<Product>,
-    IProductRepository
+public class ProductsRepository : GenericRepository<Product>,
+    IProductsRepository
 {
     private readonly IDbContextFactory<MikeyaWarehouseDbContext> _dbContextFactory;
 
-    public ProductRepository(IDbContextFactory<MikeyaWarehouseDbContext> dbContextFactory)
+    public ProductsRepository(IDbContextFactory<MikeyaWarehouseDbContext> dbContextFactory)
         : base(dbContextFactory.CreateDbContext())
     {
         _dbContextFactory = dbContextFactory;

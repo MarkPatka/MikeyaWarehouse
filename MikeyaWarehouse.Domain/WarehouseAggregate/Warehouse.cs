@@ -20,6 +20,11 @@ public sealed class Warehouse : AggregateRoot<WarehouseId>
     public string Name { get; } = null!;
     public WarehouseAdress Adress { get; }
 
+    private Warehouse()
+    {
+        
+    }
+
     private Warehouse(WarehouseId id, string name, WarehouseAdress location)
         : base(id) => (Adress, Name) = (location, name);
 

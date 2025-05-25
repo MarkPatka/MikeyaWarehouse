@@ -9,6 +9,12 @@ public sealed class Ramp : Entity<RampId>
     public char Gate { get; }
     public RampStatus Status { get; } = RampStatus.OPEN;
 
+    private Ramp()
+    {
+        
+    }
+
+
     private Ramp(RampId id, char gate, RampStatus status)
         : base(id)
     {

@@ -1,5 +1,6 @@
 ﻿using MikeyaWarehouse.Domain.Common.Abstract;
 using MikeyaWarehouse.Domain.Common.Entities;
+using MikeyaWarehouse.Domain.Common.ValueObjects;
 using MikeyaWarehouse.Domain.WarehouseAggregate.ValueObjects;
 
 namespace MikeyaWarehouse.Domain.WarehouseAggregate.Entities;
@@ -11,6 +12,11 @@ public sealed class StorageRack : Entity<StorageRackId>
 
     public int Levels { get; }
     public LoadCapacity LoadCapacity { get; }
+
+    private StorageRack()
+    {
+        
+    }
 
     private StorageRack(StorageRackId id,
         int levels, LoadCapacity capacity)

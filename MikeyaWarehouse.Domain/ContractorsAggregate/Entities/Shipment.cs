@@ -16,6 +16,11 @@ public sealed class Shipment : Entity<ShipmentId>
     public DateTime Requested { get; }
     public DateTime? Accomplished { get; }
 
+    private Shipment()
+    {
+        
+    }
+
     private Shipment(
         ShipmentId id,
         ShipmentType type,

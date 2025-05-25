@@ -11,6 +11,11 @@ public class WarehouseAdress: Entity<WarehouseAdressId>
     public string Country { get; }
     public string PostalCode { get; }
 
+    private WarehouseAdress()
+    {
+        
+    }
+
     private WarehouseAdress(
         WarehouseAdressId id,
         string street,

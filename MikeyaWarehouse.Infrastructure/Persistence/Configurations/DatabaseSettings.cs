@@ -14,4 +14,21 @@ public record DatabaseSettings
         $"Database={DB_NAME};" +
         $"Username={DB_USER};" +
         $"Password={DB_PASSWORD}";
+
+    public static DatabaseSettings Create(
+        string host,
+        int port,
+        string name,
+        string user,
+        string password)
+    {
+        return new DatabaseSettings
+        {
+            DB_HOST = host,
+            DB_PORT = port,
+            DB_NAME = name,
+            DB_USER = user,
+            DB_PASSWORD = password
+        };
+    }
 }

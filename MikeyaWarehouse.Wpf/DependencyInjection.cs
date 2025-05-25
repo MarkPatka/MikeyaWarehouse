@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MikeyaWarehouse.Infrastructure.Persistence.Configurations;
+using MikeyaWarehouse.Wpf.Configurations;
 using MikeyaWarehouse.Wpf.ViewModels.Implementations;
 using MikeyaWarehouse.Wpf.ViewModels.Interfaces;
 using System.IO;
@@ -29,6 +30,7 @@ public static class DependencyInjection
             .Build();
 
         services.AddSingleton<IConfiguration>(configuration);
+
 
         services.Configure<DatabaseSettings>(
             configuration.GetRequiredSection("Database"));

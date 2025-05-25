@@ -1,18 +1,21 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MikeyaWarehouse.Application.Common.Persistence;
-using MikeyaWarehouse.Domain.WarehouseAggregate;
+using MikeyaWarehouse.Domain.ContractorsAggregate;
 
 namespace MikeyaWarehouse.Infrastructure.Persistence.Repositories;
 
-public class WarehouseRepository : GenericRepository<Warehouse>,
-    IWarehouseRepository
+public class ContractorsRepository : GenericRepository<Contractor>,
+    IContractorsRepository
+    
 {
     private readonly IDbContextFactory<MikeyaWarehouseDbContext> _dbContextFactory;
 
-    public WarehouseRepository(IDbContextFactory<MikeyaWarehouseDbContext> dbContextFactory)
+    public ContractorsRepository(IDbContextFactory<MikeyaWarehouseDbContext> dbContextFactory) 
         : base(dbContextFactory.CreateDbContext())
     {
         _dbContextFactory = dbContextFactory;
     }
+
+
 
 }
