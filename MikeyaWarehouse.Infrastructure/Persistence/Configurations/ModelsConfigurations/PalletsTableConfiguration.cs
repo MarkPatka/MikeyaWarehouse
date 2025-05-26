@@ -91,8 +91,10 @@ public class PalletsTableConfiguration
             pb.OwnsMany(x => x.Products, ptb =>
             {
                 ptb.ToTable("Products");
-                ptb.Property<Guid>("ProductBoxId");
-                ptb.WithOwner().HasForeignKey("ProductBoxId", "PalletId");
+
+                ptb.WithOwner()
+                   .HasForeignKey("ProductBoxId", "PalletId");
+
                 ptb.HasKey(nameof(Product.Id), "ProductBoxId", "PalletId");
 
                 ptb.Property(x => x.Id)
@@ -137,7 +139,14 @@ public class PalletsTableConfiguration
                 .SetPropertyAccessMode(PropertyAccessMode.Field);
         });
 
-        builder.Metadata.FindNavigation(nameof(Pallet.ProductBoxes))!
+
+        builder.Navigation(x => x.ProductBoxes).Metadata
+            .SetField("_boxes");
+
+        builder.Navigation(x => x.ProductBoxes).Metadata
             .SetPropertyAccessMode(PropertyAccessMode.Field);
+
+        //builder.Metadata.FindNavigation(nameof(Pallet.ProductBoxes))!
+        //    .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
 }

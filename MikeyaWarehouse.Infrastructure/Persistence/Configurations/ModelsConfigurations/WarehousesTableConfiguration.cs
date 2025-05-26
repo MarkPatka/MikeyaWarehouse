@@ -249,8 +249,15 @@ public class WarehousesTableConfiguration
             szb.Navigation(s => s.StorageRacks)
                 .UsePropertyAccessMode(PropertyAccessMode.Field);
         });
-        builder.Metadata.FindNavigation(nameof(Warehouse.StorageZones))!
+
+        builder.Navigation(x => x.StorageZones).Metadata
+            .SetField("_storages");
+
+        builder.Navigation(x => x.StorageZones).Metadata
             .SetPropertyAccessMode(PropertyAccessMode.Field);
+
+        //builder.Metadata.FindNavigation(nameof(Warehouse.StorageZones))!
+        //    .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
 
     private static void ConfigureRampsTable(
@@ -321,7 +328,15 @@ public class WarehousesTableConfiguration
                     i => i.Id,
                     v => Enumeration.GetFromId<BufferZoneStatus>(v));
         });
-        builder.Metadata.FindNavigation(nameof(Warehouse.BufferZones))!
+
+
+        builder.Navigation(x => x.BufferZones).Metadata
+            .SetField("_buffers");
+
+        builder.Navigation(x => x.BufferZones).Metadata
             .SetPropertyAccessMode(PropertyAccessMode.Field);
+
+        //builder.Metadata.FindNavigation(nameof(Warehouse.BufferZones))!
+        //    .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
 }

@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using MikeyaWarehouse.Application.Common.Persistence;
 using MikeyaWarehouse.Application.Common.Services;
@@ -27,6 +25,17 @@ public static class DependencyInjection
 
     private static IServiceCollection RegisterDbContext(this IServiceCollection services)
     {
+        // its for migrations.
+        // ef migrations couldn`t get an acces to IConfiguration for a some reason
+        // thats why the cs is hardcoded
+        services.AddDbContext<MikeyaWarehouseDbContext>((provider, options) =>
+        {
+            options.UseNpgsql("Host=localhost;Port=5432;Database=MikeyaWarehouseDb;Username=mikeyaUser;Password=mikeyA1234",
+                cfg => cfg.EnableRetryOnFailure(2));
+
+        }, ServiceLifetime.Scoped);
+
+
         services.AddDbContextFactory<MikeyaWarehouseDbContext>((provider, options) =>
         {
             var dbSettings = provider
@@ -64,3 +73,5 @@ public static class DependencyInjection
     }
 
 }
+
+
