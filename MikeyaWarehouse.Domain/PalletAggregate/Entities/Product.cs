@@ -1,5 +1,6 @@
 ﻿using MikeyaWarehouse.Domain.Common.Abstract;
 using MikeyaWarehouse.Domain.Common.ValueObjects;
+using MikeyaWarehouse.Domain.PalletAggregate.Enumerations;
 using MikeyaWarehouse.Domain.PalletAggregate.ValueObjects;
 
 namespace MikeyaWarehouse.Domain.PalletAggregate.Entities;
@@ -12,7 +13,7 @@ public sealed class Product : Entity<ProductId>
     public DateOnly Expires { get; }
     public BarCode BarCode { get; }
     public Dimensions Dimensions { get; }
-
+    public ProductStatus Status { get; private set; } = ProductStatus.IN_STOCK;
 
     private Product()
     {
@@ -22,7 +23,7 @@ public sealed class Product : Entity<ProductId>
 
     private Product(ProductId id, 
         string name, int inStock, DateOnly production, DateOnly expires, 
-        BarCode code, Dimensions dimensions)
+        BarCode code, Dimensions dimensions, ProductStatus status)
         : base(id)
     {
         Name = name;
@@ -31,12 +32,14 @@ public sealed class Product : Entity<ProductId>
         Expires = expires;
         BarCode = code;
         Dimensions = dimensions;
+        Status = status;
     }
 
     public static Product Create(
         int id, string name, int inStock, DateOnly production, DateOnly expires,
-        BarCode code, Dimensions dimensions)
+        BarCode code, Dimensions dimensions, ProductStatus status)
     {
-        return new(ProductId.Create(id), name, inStock, production, expires, code, dimensions);
+        return new(ProductId.Create(id), 
+            name, inStock, production, expires, code, dimensions, status);
     }
 }

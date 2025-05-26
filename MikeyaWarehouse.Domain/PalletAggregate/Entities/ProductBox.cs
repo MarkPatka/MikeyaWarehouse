@@ -15,7 +15,7 @@ public class ProductBox : Entity<ProductBoxId>
     public DateOnly Expire { get; }
     public DateOnly Production { get; }
     public BarCode Code { get; }
-    public BoxStatus BoxStatus { get; }
+    public BoxStatus BoxStatus { get; private set; } = BoxStatus.FULL;
 
     private ProductBox()
     {

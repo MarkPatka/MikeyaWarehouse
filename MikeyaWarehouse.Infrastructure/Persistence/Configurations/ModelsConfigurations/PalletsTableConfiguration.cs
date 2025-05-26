@@ -5,6 +5,7 @@ using MikeyaWarehouse.Domain.PalletAggregate.ValueObjects;
 using MikeyaWarehouse.Domain.PalletAggregate.Enumerations;
 using MikeyaWarehouse.Domain.Common.Abstract;
 using MikeyaWarehouse.Domain.PalletAggregate.Entities;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MikeyaWarehouse.Infrastructure.Persistence.Configurations.ModelsConfigurations;
 
@@ -37,8 +38,10 @@ public class PalletsTableConfiguration
 
         builder.Property(x => x.Type)
             .HasConversion(
+                new ValueConverter<PalletType, int>(
                 type => type.Id,
-                value => Enumeration.GetFromId<PalletType>(value));
+                value => Enumeration.GetFromId<PalletType>(value)))
+            .HasColumnType("integer");
 
         builder.OwnsOne(x => x.Dimensions, d =>
         {
@@ -64,6 +67,13 @@ public class PalletsTableConfiguration
                 .HasConversion(
                     id => id.Value,
                     value => ProductBoxId.Create(value));
+
+            pb.Property(x => x.BoxStatus)
+                .HasConversion(
+                    new ValueConverter<BoxStatus, int>(
+                    type => type.Id,
+                    value => Enumeration.GetFromId<BoxStatus>(value)))
+                .HasColumnType("integer");
 
             pb.Property(x => x.Expire)
                 .HasConversion(
@@ -103,6 +113,13 @@ public class PalletsTableConfiguration
                     .HasConversion(
                         id => id.Value,
                         value => ProductId.Create(value));
+
+                ptb.Property(x => x.Status)
+                    .HasConversion(
+                    new ValueConverter<ProductStatus, int>(
+                        type => type.Id,
+                        value => Enumeration.GetFromId<ProductStatus>(value)))
+                    .HasColumnType("integer");
 
                 ptb.Property(p => p.Name)
                     .HasMaxLength(100);
