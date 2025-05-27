@@ -87,7 +87,7 @@ public class ContractorsTableConfiguration
                 .HasConversion(
                     id => id.Value,
                     value => ShipmentId.Create(value));
-
+                
             sb.Property(x => x.Type)
                 .HasConversion(
                     i => i.Id,

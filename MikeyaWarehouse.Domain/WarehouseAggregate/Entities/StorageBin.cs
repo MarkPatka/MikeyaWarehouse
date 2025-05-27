@@ -22,11 +22,9 @@ public sealed class StorageBin : Entity<StorageBinId>
     public Dimensions Dimensions { get; }
     public LoadCapacity LoadCapacity { get; }
 
-
-    private StorageBin()
-    {
-        
-    }
+#pragma warning disable CS8618
+    private StorageBin() { }
+#pragma warning restore CS8618
 
     private StorageBin(
         StorageBinId id,

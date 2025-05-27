@@ -13,7 +13,10 @@ public class ContractorAdress : Entity<ContractorAdressId>
     public string PostalCode { get; }
     public GeoCoordinates? Coordinates { get; }
 
+
+#pragma warning disable CS8618
     private ContractorAdress() { }
+#pragma warning restore CS8618
 
     private ContractorAdress(
         ContractorAdressId id,

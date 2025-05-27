@@ -9,11 +9,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace MikeyaWarehouse.Infrastructure.Persistence.Migrations
+namespace MikeyaWarehouse.Infrastructure.Migrations
 {
     [DbContext(typeof(MikeyaWarehouseDbContext))]
-    [Migration("20250526072127_CreateMigration")]
-    partial class CreateMigration
+    [Migration("20250527114101_InitialRecreate")]
+    partial class InitialRecreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -213,6 +213,9 @@ namespace MikeyaWarehouse.Infrastructure.Persistence.Migrations
                             b1.Property<Guid>("PalletId")
                                 .HasColumnType("uuid");
 
+                            b1.Property<int>("BoxStatus")
+                                .HasColumnType("integer");
+
                             b1.Property<DateTime>("Expire")
                                 .HasColumnType("timestamp with time zone");
 
@@ -250,6 +253,9 @@ namespace MikeyaWarehouse.Infrastructure.Persistence.Migrations
 
                                     b2.Property<DateTime>("Production")
                                         .HasColumnType("timestamp with time zone");
+
+                                    b2.Property<int>("Status")
+                                        .HasColumnType("integer");
 
                                     b2.HasKey("Id", "ProductBoxId", "PalletId");
 

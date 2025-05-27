@@ -1,7 +1,6 @@
 ﻿using MikeyaWarehouse.Domain.Common.Abstract;
 using MikeyaWarehouse.Domain.ContractorsAggregate.Enumerations;
 using MikeyaWarehouse.Domain.ContractorsAggregate.ValueObjects;
-using MikeyaWarehouse.Domain.PalletAggregate;
 using MikeyaWarehouse.Domain.PalletAggregate.ValueObjects;
 
 namespace MikeyaWarehouse.Domain.ContractorsAggregate.Entities;
@@ -10,16 +9,15 @@ public sealed class Shipment : Entity<ShipmentId>
 {
     private readonly List<PalletId> _pallets = [];
     public IReadOnlyList<PalletId> PalletIds => _pallets.AsReadOnly();
-    
+
     public ShipmentType Type { get; }
     public ShipmentStatus Status { get; }
     public DateTime Requested { get; }
     public DateTime? Accomplished { get; }
 
-    private Shipment()
-    {
-        
-    }
+#pragma warning disable CS8618 
+    private Shipment() { }
+#pragma warning restore CS8618 
 
     private Shipment(
         ShipmentId id,
@@ -37,7 +35,7 @@ public sealed class Shipment : Entity<ShipmentId>
 
     public static Shipment Create(
         ShipmentType type, 
-        ShipmentStatus status, 
+        ShipmentStatus status,
         DateTime req, 
         DateTime? end)
     {

@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MikeyaWarehouse.Application\MikeyaWarehouse.Application.csproj" />
+    <ProjectReference Include="..\MikeyaWarehouse.Contracts\MikeyaWarehouse.Contracts.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -12,10 +12,10 @@ public sealed class StorageZone : Entity<StorageZoneId>
     public ClimatRegime Regime { get; }
     public char Code { get; }
 
-    private StorageZone()
-    {
-        
-    }
+#pragma warning disable CS8618
+    private StorageZone() { }
+#pragma warning restore CS8618
+
     private StorageZone(
         StorageZoneId id, 
         ClimatRegime regime, 

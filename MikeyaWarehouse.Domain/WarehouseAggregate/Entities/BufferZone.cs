@@ -12,13 +12,9 @@ public sealed class BufferZone : Entity<BufferZoneId>
     public Dimensions Dimensions { get; }
     public BufferZoneStatus Status { get; } = BufferZoneStatus.EMPTY;
 
-
-
-    private BufferZone()
-    {
-        
-    }
-
+#pragma warning disable CS8618
+    private BufferZone() { }
+#pragma warning restore CS8618
 
     private BufferZone(
         BufferZoneId id,

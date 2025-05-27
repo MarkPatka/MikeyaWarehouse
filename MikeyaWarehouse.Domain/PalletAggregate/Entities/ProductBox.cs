@@ -17,11 +17,9 @@ public class ProductBox : Entity<ProductBoxId>
     public BarCode Code { get; }
     public BoxStatus BoxStatus { get; private set; } = BoxStatus.FULL;
 
-    private ProductBox()
-    {
-        
-
-    }
+#pragma warning disable CS8618
+    private ProductBox() { }
+#pragma warning restore CS8618
 
     private ProductBox(
         ProductBoxId id, 

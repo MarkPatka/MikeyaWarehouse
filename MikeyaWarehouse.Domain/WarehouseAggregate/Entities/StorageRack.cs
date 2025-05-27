@@ -13,10 +13,9 @@ public sealed class StorageRack : Entity<StorageRackId>
     public int Levels { get; }
     public LoadCapacity LoadCapacity { get; }
 
-    private StorageRack()
-    {
-        
-    }
+#pragma warning disable CS8618
+    private StorageRack() { }
+#pragma warning restore CS8618
 
     private StorageRack(StorageRackId id,
         int levels, LoadCapacity capacity)

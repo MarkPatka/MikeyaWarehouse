@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace MikeyaWarehouse.Infrastructure.Persistence.Migrations
+namespace MikeyaWarehouse.Infrastructure.Migrations
 {
     [DbContext(typeof(MikeyaWarehouseDbContext))]
     partial class MikeyaWarehouseDbContextModelSnapshot : ModelSnapshot

@@ -11,10 +11,9 @@ public class WarehouseAdress: Entity<WarehouseAdressId>
     public string Country { get; }
     public string PostalCode { get; }
 
-    private WarehouseAdress()
-    {
-        
-    }
+#pragma warning disable CS8618
+    private WarehouseAdress() { }
+#pragma warning restore CS8618
 
     private WarehouseAdress(
         WarehouseAdressId id,

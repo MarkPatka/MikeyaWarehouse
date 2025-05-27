@@ -15,11 +15,10 @@ public sealed class Product : Entity<ProductId>
     public Dimensions Dimensions { get; }
     public ProductStatus Status { get; private set; } = ProductStatus.IN_STOCK;
 
-    private Product()
-    {
-        
-    }
 
+#pragma warning disable CS8618
+    private Product() { }
+#pragma warning restore CS8618
 
     private Product(ProductId id, 
         string name, int inStock, DateOnly production, DateOnly expires, 

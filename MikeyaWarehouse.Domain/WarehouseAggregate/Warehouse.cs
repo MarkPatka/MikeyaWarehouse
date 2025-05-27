@@ -20,10 +20,9 @@ public sealed class Warehouse : AggregateRoot<WarehouseId>
     public string Name { get; } = null!;
     public WarehouseAdress Adress { get; }
 
-    private Warehouse()
-    {
-        
-    }
+#pragma warning disable CS8618
+    private Warehouse() { }
+#pragma warning restore CS8618
 
     private Warehouse(WarehouseId id, string name, WarehouseAdress location)
         : base(id) => (Adress, Name) = (location, name);
