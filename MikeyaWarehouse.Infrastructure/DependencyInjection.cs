@@ -55,8 +55,6 @@ public static class DependencyInjection
         services
             .AddScoped<IContractorsRepository, ContractorsRepository>()
             .AddScoped<IPalletsRepository, PalletsRepository>()
-            .AddScoped<IProductsRepository, ProductsRepository>()
-            .AddScoped<IShipmentsRepository, ShipmentsRepository>()
             .AddScoped<IWarehousesRepository, WarehousesRepository>();
         
         return services;
