@@ -7,16 +7,17 @@ public abstract class AsyncRelayCommand<TResult> : ICommand
     private bool _isExecuting;
     private CommandResult<TResult> commandResult = null!;
 
-    public abstract Func<object?, Task> ExecuteCommand { get; }
+    public abstract Func<object?, Task<CommandResult<TResult>>> ExecuteCommand { get; }
     public abstract Predicate<object?>? CanExecuteCommand { get; }
     public abstract Action<Exception>? ErrorHandler { get; }
 
-    protected CommandResult<TResult> CommandResult 
+    public CommandResult<TResult> CommandResult 
     { 
         get => commandResult; 
         set => commandResult = value; 
     }
 
+    public event EventHandler<CommandResult<TResult>>? CommandCompleted;
     public event EventHandler? CanExecuteChanged
     {
         add { CommandManager.RequerySuggested += value; }
@@ -32,8 +33,7 @@ public abstract class AsyncRelayCommand<TResult> : ICommand
 
     public async void Execute(object? parameter = null)
     {
-        await ExecuteAsync(parameter)
-            .ConfigureAwait(false);
+        await ExecuteAsync(parameter);
     }
 
     private async Task ExecuteAsync(object? parameter = null)
@@ -45,11 +45,13 @@ public abstract class AsyncRelayCommand<TResult> : ICommand
             _isExecuting = true;
             RaiseCanExecuteChanged();
 
-            await ExecuteCommand(parameter)
-                .ConfigureAwait(false);
+            commandResult = await ExecuteCommand(parameter);
+            CommandCompleted?.Invoke(this, commandResult);
+
         }
         catch (Exception ex) when (ErrorHandler is not null)
         {
+            commandResult = new CommandResult<TResult>(ex);
             ErrorHandler(ex);
         }
         finally
