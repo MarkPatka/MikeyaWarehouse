@@ -64,6 +64,9 @@ public abstract class GenericRepository<TType>
         }
     }
 
+    public IQueryable<TType> GetAllAsQueryableAsNoTracking() =>
+        _dbSet.AsNoTracking();
+
     public async Task UpdateAsync(TType entity)
     {
         _dbSet.Update(entity);

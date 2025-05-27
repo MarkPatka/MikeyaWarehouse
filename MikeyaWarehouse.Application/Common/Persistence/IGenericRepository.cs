@@ -10,6 +10,7 @@ public interface IGenericRepository<T> where T : class
     public Task<IEnumerable<T>> GetFilteredAsync(
         Expression<Func<T, bool>> func, bool tracked = false);
 
+    public IQueryable<T> GetAllAsQueryableAsNoTracking();
 
     public Task CreateAsync(T entity);
     public Task UpdateAsync(T entity);
