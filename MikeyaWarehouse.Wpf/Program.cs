@@ -1,11 +1,9 @@
-﻿using CommandLine;
-using Microsoft.Extensions.Configuration;
+﻿using MaterialDesignColors;
+using MaterialDesignThemes.Wpf;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 using MikeyaWarehouse.Application;
 using MikeyaWarehouse.Infrastructure;
-using MikeyaWarehouse.Infrastructure.Persistence.Configurations;
 using MikeyaWarehouse.Wpf.Configurations;
 using MikeyaWarehouse.Wpf.ViewModels.Interfaces;
 using System.Reflection;
@@ -83,9 +81,12 @@ internal class Program
     {
         try
         {
-            var app = new System.Windows.Application();
+            var app = new App();
+            app.InitializeComponent();
+
             var mainWindow = host.Services.GetRequiredService<MainWindow>();
             mainWindow.DataContext = host.Services.GetRequiredService<IMainViewModel>();
+            
             app.Run(mainWindow);
         }
         catch (Exception ex)

@@ -1,9 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MikeyaWarehouse.Infrastructure.Persistence.Configurations;
+using MikeyaWarehouse.Wpf.Commands;
+using MikeyaWarehouse.Wpf.Commands.Abstract;
 using MikeyaWarehouse.Wpf.ViewModels.Implementations;
 using MikeyaWarehouse.Wpf.ViewModels.Interfaces;
 using System.IO;
+using System.Windows.Input;
 
 namespace MikeyaWarehouse.Wpf;
 
@@ -13,6 +16,8 @@ public static class DependencyInjection
     {
         services
             .AddConfiguration()
+            .RegisterCommands()
+            .RegisterCommandFactory()
             .RegisterViewModels()
             .RegisterViews();
     
@@ -44,6 +49,20 @@ public static class DependencyInjection
     private static IServiceCollection RegisterViewModels(this IServiceCollection services)
     {
         services.AddSingleton<IMainViewModel, MainViewModel>();
+        return services;
+    }
+
+    private static IServiceCollection RegisterCommands(this IServiceCollection services)
+    {
+        services.AddTransient<LoadPalletDataCommand>();
+        services.AddTransient<LoadProductDataCommand>();
+
+        return services;
+    }
+
+    private static IServiceCollection RegisterCommandFactory(this IServiceCollection services)
+    {
+        services.AddTransient<ICommandFactory, CommandFactory>();
         return services;
     }
 }

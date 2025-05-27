@@ -6,6 +6,98 @@
              xmlns:local="clr-namespace:MikeyaWarehouse.Wpf.Views.Pages"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <DockPanel Margin="10">
+        <StackPanel
+        Orientation="Horizontal" 
+        DockPanel.Dock="Bottom" 
+        Margin="0,0,0,10">
+            <Button
+            Content="Load Products" 
+            Padding="10,5" 
+            Margin="5"
+            Command="{Binding LoadProducts}">
+            </Button>
+        </StackPanel>
 
-
+        <DataGrid x:Name="PalltsData"
+          Height="auto"
+          Margin="5 0"
+          ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+          ScrollViewer.VerticalScrollBarVisibility="Visible"
+          SelectionMode="Single"
+          VerticalAlignment="Stretch"
+          ClipToBounds="True"
+          AutoGenerateColumns="False"
+          CanUserAddRows="False"
+          CanUserDeleteRows="False"
+          CanUserReorderColumns="False"
+          CanUserResizeRows="False"
+          CanUserResizeColumns="True"
+          Style="{StaticResource MaterialDesignDataGrid}"
+          ItemsSource="{Binding Products, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+          d:ItemsSource="{d:SampleData ItemCount=5}">
+            <DataGrid.Columns>
+                <DataGridTextColumn 
+                    IsReadOnly="True" 
+                    Width="*" 
+                    Header="Id" 
+                    Binding="{Binding Id}">
+                </DataGridTextColumn>
+                <DataGridTextColumn 
+                    IsReadOnly="True" 
+                    Width="*" 
+                    Header="Name" 
+                    Binding="{Binding Name}">
+                </DataGridTextColumn>
+                <DataGridTextColumn 
+                    IsReadOnly="True" 
+                    Width="*" 
+                    Header="In Stock" 
+                    Binding="{Binding InStock}">
+                </DataGridTextColumn>
+                <DataGridTextColumn 
+                    IsReadOnly="True" 
+                    Width="*" 
+                    Header="Production Date" 
+                    Binding="{Binding Expires, StringFormat='dd.MM.yyyy'}">
+                </DataGridTextColumn>
+                <DataGridTextColumn 
+                    IsReadOnly="True" 
+                    Width="*" 
+                    Header="Expiration Date" 
+                    Binding="{Binding Expires, StringFormat='dd.MM.yyyy'}">
+                </DataGridTextColumn>
+                <DataGridTextColumn 
+                    IsReadOnly="True" 
+                    Width="*" 
+                    Header="Barcode" 
+                    Binding="{Binding BarCode}">
+                </DataGridTextColumn>
+                <DataGridTextColumn 
+                    IsReadOnly="True" 
+                    Width="*" 
+                    Header="Dimensions" 
+                    Binding="{Binding Dimensions}">
+                </DataGridTextColumn>
+                <DataGridTextColumn 
+                    IsReadOnly="True" 
+                    Width="*" 
+                    Header="Volume" 
+                    Binding="{Binding Volume}">
+                </DataGridTextColumn>
+                <DataGridTextColumn 
+                    IsReadOnly="True" 
+                    Width="*" 
+                    Header="Weight" 
+                    Binding="{Binding Weight}">
+                </DataGridTextColumn>
+                <DataGridTextColumn 
+                    IsReadOnly="True" 
+                    Width="*" 
+                    Header="Status" 
+                    Binding="{Binding Status}">
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
 </UserControl>
