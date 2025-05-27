@@ -19,23 +19,24 @@
             </Button>
         </StackPanel>
 
-        <DataGrid x:Name="PalltsData"
-          Height="auto"
-          Margin="5 0"
-          ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-          ScrollViewer.VerticalScrollBarVisibility="Visible"
-          SelectionMode="Single"
-          VerticalAlignment="Stretch"
-          ClipToBounds="True"
-          AutoGenerateColumns="False"
-          CanUserAddRows="False"
-          CanUserDeleteRows="False"
-          CanUserReorderColumns="False"
-          CanUserResizeRows="False"
-          CanUserResizeColumns="True"
-          Style="{StaticResource MaterialDesignDataGrid}"
-          ItemsSource="{Binding Products, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-          d:ItemsSource="{d:SampleData ItemCount=5}">
+        <DataGrid 
+            x:Name="ProductsData"
+            Height="auto"
+            Margin="5 0"
+            ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+            ScrollViewer.VerticalScrollBarVisibility="Visible"
+            SelectionMode="Single"
+            VerticalAlignment="Stretch"
+            ClipToBounds="True"
+            AutoGenerateColumns="False"
+            CanUserAddRows="False"
+            CanUserDeleteRows="False"
+            CanUserReorderColumns="False"
+            CanUserResizeRows="False"
+            CanUserResizeColumns="True"
+            Style="{StaticResource MaterialDesignDataGrid}"
+            ItemsSource="{Binding Products, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            d:ItemsSource="{d:SampleData ItemCount=5}">
             <DataGrid.Columns>
                 <DataGridTextColumn 
                     IsReadOnly="True" 

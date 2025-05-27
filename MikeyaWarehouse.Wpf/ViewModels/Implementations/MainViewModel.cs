@@ -1,10 +1,8 @@
-﻿using MikeyaWarehouse.Application.Common.Persistence;
-using MikeyaWarehouse.Domain.PalletAggregate;
+﻿using MikeyaWarehouse.Contracts.DTO;
 using MikeyaWarehouse.Wpf.Commands;
 using MikeyaWarehouse.Wpf.Commands.Abstract;
-using MikeyaWarehouse.Wpf.Models;
+using MikeyaWarehouse.Wpf.Models.Domain;
 using MikeyaWarehouse.Wpf.ViewModels.Interfaces;
-using Sprache;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -14,14 +12,15 @@ public class MainViewModel
     : ViewModelBase, IMainViewModel
 {
     private readonly ICommandFactory _commandFactory;
-    private readonly LoadPalletDataCommand _loadPalletDataCommand;
+    private readonly LoadShipmentDataCommand _loadShipmentDataCommand;
     private readonly LoadProductDataCommand _loadProductDataCommand;
-    
+    private readonly LoadPalletDataCommand _loadPalletDataCommand;
+
     private ObservableCollection<PalletModel> _pallets = [];
     private ObservableCollection<ProductModel> _products = [];
-
-    public MainViewModel(
-        ICommandFactory commandFactory)
+    private ObservableCollection<ShipmentModel> _shipments = [];
+    
+    public MainViewModel(ICommandFactory commandFactory)
     {
         _commandFactory = commandFactory;
         
@@ -31,9 +30,12 @@ public class MainViewModel
         _loadProductDataCommand = _commandFactory.GetCommand<LoadProductDataCommand>();
         _loadProductDataCommand.CommandCompleted += OnProductsLoaded;
 
+
+        _loadShipmentDataCommand = _commandFactory.GetCommand<LoadShipmentDataCommand>();
+        _loadShipmentDataCommand.CommandCompleted += OnShipmentsLoaded;
     }
 
-    public string Title => "Mikeya Warehouse Application";
+    public static string Title => "Mikeya Warehouse Application";
     public ObservableCollection<PalletModel> Pallets
     {
         get => _pallets;
@@ -52,9 +54,20 @@ public class MainViewModel
             OnPropertyChanged();
         }
     }
+    public ObservableCollection<ShipmentModel> Shipments
+    {
+        get => _shipments;
+        set
+        {
+            _shipments = value;
+            OnPropertyChanged();
+        }
+    }
     public ICommand LoadPallets => _loadPalletDataCommand;
     public ICommand LoadProducts => _loadProductDataCommand;
-
+    public ICommand LoadShipments => _loadShipmentDataCommand;
+    
+    
     private void OnPalletsLoaded(object? sender, CommandResult<LoadPalletDataCommandResult> result)
     {
         if (result.Status == CommandStatus.SUCCESS && result.Value is LoadPalletDataCommandResult data)
@@ -69,18 +82,11 @@ public class MainViewModel
             Products = [.. data.Products.Select(p => new ProductModel(p))];
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    private void OnShipmentsLoaded(object? sender, CommandResult<LoadShipmentDataCommandResult> result)
+    {
+        if (result.Status == CommandStatus.SUCCESS && result.Value is LoadShipmentDataCommandResult data)
+        {
+            Shipments = [.. data.Shipments];
+        }
+    }
 }

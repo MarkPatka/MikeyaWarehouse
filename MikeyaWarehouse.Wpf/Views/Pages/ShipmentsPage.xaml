@@ -6,7 +6,85 @@
              xmlns:local="clr-namespace:MikeyaWarehouse.Wpf.Views.Pages"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+    <DockPanel Margin="10">
+        <StackPanel
+        Orientation="Horizontal" 
+        DockPanel.Dock="Bottom" 
+        Margin="0,0,0,10">
+            <Button
+            Content="Load Shipments" 
+            Padding="10,5" 
+            Margin="5"
+            Command="{Binding LoadShipments}">
+            </Button>
+        </StackPanel>
+
+        <DataGrid 
+            x:Name="ShipmentsData"
+            Height="auto"
+            Margin="5 0"
+            ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+            ScrollViewer.VerticalScrollBarVisibility="Visible"
+            SelectionMode="Single"
+            VerticalAlignment="Stretch"
+            ClipToBounds="True"
+            AutoGenerateColumns="False"
+            CanUserAddRows="False"
+            CanUserDeleteRows="False"
+            CanUserReorderColumns="False"
+            CanUserResizeRows="False"
+            CanUserResizeColumns="True"
+            Style="{StaticResource MaterialDesignDataGrid}"
+            ItemsSource="{Binding Shipments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            d:ItemsSource="{d:SampleData ItemCount=5}">
+            <DataGrid.Columns>
+                <DataGridTextColumn 
+                    IsReadOnly="True" 
+                    Width="*" 
+                    Header="Id" 
+                    Binding="{Binding Id}">
+                </DataGridTextColumn>
+                <DataGridTextColumn 
+                    IsReadOnly="True" 
+                    Width="*" 
+                    Header="COntractor Name" 
+                    Binding="{Binding ContractorName}">
+                </DataGridTextColumn>
+                <DataGridTextColumn 
+                    IsReadOnly="True" 
+                    Width="*" 
+                    Header="Pallet Count" 
+                    Binding="{Binding PalletCount}">
+                </DataGridTextColumn>
+                <DataGridTextColumn 
+                    IsReadOnly="True" 
+                    Width="*" 
+                    Header="Type" 
+                    Binding="{Binding Type}">
+                </DataGridTextColumn>
+                <DataGridTextColumn 
+                    IsReadOnly="True" 
+                    Width="*" 
+                    Header="Status" 
+                    Binding="{Binding Status}">
+                </DataGridTextColumn>
+                <DataGridTextColumn 
+                    IsReadOnly="True" 
+                    Width="*" 
+                    Header="Request Date" 
+                    Binding="{Binding Requested, 
+                                      StringFormat='dd.MM.yyyy HH:mm:ss'}">
+                </DataGridTextColumn>
+                <DataGridTextColumn 
+                    IsReadOnly="True" 
+                    Width="*" 
+                    Header="Accomplished Date" 
+                    Binding="{Binding Accomplished, 
+                                      StringFormat='dd.MM.yyyy HH:mm:ss',
+                                      TargetNullValue='...',
+                                      FallbackValue=''}">
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
 </UserControl>

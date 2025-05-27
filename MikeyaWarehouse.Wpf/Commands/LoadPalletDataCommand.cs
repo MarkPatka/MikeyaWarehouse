@@ -1,20 +1,13 @@
-﻿using Microsoft.Extensions.Logging;
-using MikeyaWarehouse.Application.Common.Persistence;
+﻿using MikeyaWarehouse.Application.Common.Persistence;
 using MikeyaWarehouse.Domain.PalletAggregate;
 using MikeyaWarehouse.Wpf.Commands.Abstract;
 
 namespace MikeyaWarehouse.Wpf.Commands;
 
-public class LoadPalletDataCommand 
-    : AsyncRelayCommand<LoadPalletDataCommandResult>
+public class LoadPalletDataCommand(IPalletsRepository pallets)
+        : AsyncRelayCommand<LoadPalletDataCommandResult>
 {
-    private readonly IPalletsRepository _pallets;
-
-    public LoadPalletDataCommand(
-        IPalletsRepository pallets)
-    {
-        _pallets = pallets;
-    }
+    private readonly IPalletsRepository _pallets = pallets;
 
     public override Func<object?, Task<CommandResult<LoadPalletDataCommandResult>>> ExecuteCommand => LoadAllPallets;
     public override Predicate<object?>? CanExecuteCommand => null;

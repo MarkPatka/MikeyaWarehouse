@@ -54,8 +54,11 @@ public static class DependencyInjection
 
     private static IServiceCollection RegisterCommands(this IServiceCollection services)
     {
-        services.AddTransient<LoadPalletDataCommand>();
-        services.AddTransient<LoadProductDataCommand>();
+        services
+            .AddTransient<LoadShipmentDataCommand>()
+            .AddTransient<LoadProductDataCommand>()
+            .AddTransient<LoadPalletDataCommand>()
+            ;
 
         return services;
     }

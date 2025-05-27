@@ -4,23 +4,17 @@ using MikeyaWarehouse.Wpf.Commands.Abstract;
 
 namespace MikeyaWarehouse.Wpf.Commands;
 
-public class LoadProductDataCommand 
-    : AsyncRelayCommand<LoadProductDataCommandResult>
+public class LoadProductDataCommand(IPalletsRepository pallets)
+        : AsyncRelayCommand<LoadProductDataCommandResult>
 {
-    private readonly IPalletsRepository _pallets;
+    private readonly IPalletsRepository _pallets = pallets;
 
-    public LoadProductDataCommand(
-        IPalletsRepository pallets)
-    {
-        _pallets = pallets;
-    }
-
-    public override Func<object?, Task<CommandResult<LoadProductDataCommandResult>>> ExecuteCommand => LoadAllPallets;
+    public override Func<object?, Task<CommandResult<LoadProductDataCommandResult>>> ExecuteCommand => LoadAllProducts;
     public override Predicate<object?>? CanExecuteCommand => null;
     public override Action<Exception>? ErrorHandler => LogError;
 
 
-    private async Task<CommandResult<LoadProductDataCommandResult>> LoadAllPallets(object? parameter = null)
+    private async Task<CommandResult<LoadProductDataCommandResult>> LoadAllProducts(object? parameter = null)
     {
         try
         {

@@ -20,7 +20,7 @@
             </Button>
         </StackPanel>
 
-        <DataGrid x:Name="PalltsData"
+        <DataGrid x:Name="PalletsData"
               Height="auto"
               Margin="5 0"
               ScrollViewer.HorizontalScrollBarVisibility="Hidden"
