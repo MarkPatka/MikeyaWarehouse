@@ -42,20 +42,20 @@ public static class PalletExtensions
         var (length, width, height, weight) = pallet.Type.Id switch
         {
             1 => (
-                GlobalConstants.FIN_LENGTH,
-                GlobalConstants.FIN_WIDTH,
-                GlobalConstants.FIN_HEIGHT,
-                GlobalConstants.FIN_WEIGHT),
+                GlobalConstants.FIN_PALLET_LENGTH,
+                GlobalConstants.FIN_PALLET_WIDTH,
+                GlobalConstants.FIN_PALLET_HEIGHT,
+                GlobalConstants.FIN_PALLET_WEIGHT),
             2 => (
-                GlobalConstants.EURO_LENGTH,
-                GlobalConstants.EURO_WIDTH,
-                GlobalConstants.EURO_HEIGHT,
-                GlobalConstants.EURO_WEIGHT),
+                GlobalConstants.EURO_PALLET_LENGTH,
+                GlobalConstants.EURO_PALLET_WIDTH,
+                GlobalConstants.EURO_PALLET_HEIGHT,
+                GlobalConstants.EURO_PALLET_WEIGHT),
             3 => (
-                GlobalConstants.EURO_STANDARD_LENGTH,
-                GlobalConstants.EURO_STANDARD_WIDTH,
-                GlobalConstants.EURO_STANDARD_HEIGHT,
-                GlobalConstants.EURO_STANDARD_WEIGHT),
+                GlobalConstants.EURO_STANDARD_PALLET_LENGTH,
+                GlobalConstants.EURO_STANDARD_PALLET_WIDTH,
+                GlobalConstants.EURO_STANDARD_PALLET_HEIGHT,
+                GlobalConstants.EURO_STANDARD_PALLET_WEIGHT),
             _ => (0d, 0d, 0d, 0d)
         };
 

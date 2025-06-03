@@ -17,12 +17,12 @@ public static class GenericAlgorithms
         return unicDates;
     }
 
-    public static void InsertionSort<T>(
-        IEnumerable<T> unicDates, string direction = "ASC")
+    public static List<T> InsertionSort<T>(
+        IEnumerable<T> elements, string direction = "ASC")
         where T : IComparable
     {
         var comparer = GetComparer<T>(direction);
-        var list = unicDates.ToList();
+        var list = elements.ToList();
         int n = list.Count;
         for (int i = 1; i < n; i++)
         {
@@ -37,6 +37,7 @@ public static class GenericAlgorithms
 
             list[j + 1] = target;
         }
+        return list;
     }
 
     public static Comparison<T> GetComparer<T>(string direction = "ASC")
@@ -68,10 +69,6 @@ public static class GenericAlgorithms
         T[] temp = new T[array.Length];
         Sort<T>(array, temp, 0, array.Length - 1, GetComparer<T>(direction));
     }
-
-
-
-
 
     private static void Sort<T>(
         T[] array, T[] temp, int left, int right, Comparison<T> comparer)

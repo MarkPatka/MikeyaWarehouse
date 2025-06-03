@@ -121,6 +121,8 @@ public class PalletsTableConfiguration
                         value => Enumeration.GetFromId<ProductStatus>(value)))
                     .HasColumnType("integer");
 
+                ptb.Property(p => p.InStock);
+
                 ptb.Property(p => p.Name)
                     .HasMaxLength(100);
 

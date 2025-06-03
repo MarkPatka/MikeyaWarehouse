@@ -11,6 +11,18 @@ public class PalletsManagementService
     public Dictionary<DateOnly, List<Pallet>> GroupPalletsByExpirationDate(
         Pallet[] pallets, string direction = "ASC")
     {
+
+        /// VAR 1
+        var result = pallets
+            .GroupBy(p => p.Expires)
+            .OrderBy(p => p.Key)
+            .ToDictionary(
+                k => k.Key,
+                v => v.Select(p => p)
+                      .OrderBy(p => p.Dimensions.Weight));
+
+        /// VAR 2
+
         // Getting keys for groups
         var elements = pallets
             .Select(p => p.Expires);
@@ -20,11 +32,11 @@ public class PalletsManagementService
             .Distinct<DateOnly>(elements);
 
         // Sorting keys
-        GenericAlgorithms
+        var sortedDates = GenericAlgorithms
             .InsertionSort<DateOnly>(unicDates, direction);
 
         // Group pallets by keys
-        Dictionary<DateOnly, List<Pallet>> groups = unicDates
+        Dictionary<DateOnly, List<Pallet>> groups = sortedDates
             .ToDictionary(date => date, v => new List<Pallet>());
 
         for (int i = 0; i < pallets.Length; i++)
