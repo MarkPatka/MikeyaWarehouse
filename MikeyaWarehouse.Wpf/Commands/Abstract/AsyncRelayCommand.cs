@@ -18,6 +18,7 @@ public abstract class AsyncRelayCommand<TResult> : ICommand
     }
 
     public event EventHandler<CommandResult<TResult>>? CommandCompleted;
+
     public event EventHandler? CanExecuteChanged
     {
         add { CommandManager.RequerySuggested += value; }

@@ -11,6 +11,8 @@ namespace MikeyaWarehouse.Wpf.ViewModels.Implementations;
 public class MainViewModel
     : ViewModelBase, IMainViewModel
 {
+    public static string Title => "Mikeya Warehouse Application";
+
     private readonly ICommandFactory _commandFactory;
     private readonly LoadShipmentDataCommand _loadShipmentDataCommand;
     private readonly LoadProductDataCommand _loadProductDataCommand;
@@ -34,8 +36,7 @@ public class MainViewModel
         _loadShipmentDataCommand = _commandFactory.GetCommand<LoadShipmentDataCommand>();
         _loadShipmentDataCommand.CommandCompleted += OnShipmentsLoaded;
     }
-
-    public static string Title => "Mikeya Warehouse Application";
+    
     public ObservableCollection<PalletModel> Pallets
     {
         get => _pallets;
@@ -63,6 +64,7 @@ public class MainViewModel
             OnPropertyChanged();
         }
     }
+   
     public ICommand LoadPallets => _loadPalletDataCommand;
     public ICommand LoadProducts => _loadProductDataCommand;
     public ICommand LoadShipments => _loadShipmentDataCommand;
