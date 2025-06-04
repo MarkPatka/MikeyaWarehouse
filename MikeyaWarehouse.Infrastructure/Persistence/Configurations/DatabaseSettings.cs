@@ -2,11 +2,11 @@
 
 public record DatabaseSettings
 {
-    public string DB_HOST { get; init; } = "localhost";
-    public int DB_PORT { get; init; } = 5432;
-    public string DB_NAME { get; init; } = "DbName";
-    public string DB_USER { get; init; } = "DbUser";
-    public string DB_PASSWORD { get; init; } = "DbPassword";
+    public string DB_HOST     { get; set; } = "localhost";
+    public int DB_PORT        { get; set; } = 5432;
+    public string DB_NAME     { get; set; } = "DbName";
+    public string DB_USER     { get; set; } = "DbUser";
+    public string DB_PASSWORD { get; set; } = "DbPassword";
         
     public string ConnectionString =>
         $"Host={DB_HOST};" +

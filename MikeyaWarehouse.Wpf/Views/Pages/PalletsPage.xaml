@@ -18,6 +18,18 @@
                 Margin="5"
                 Command="{Binding LoadPallets}">
             </Button>
+            <Button
+                Content="Group Pallets" 
+                Padding="10,5" 
+                Margin="5"
+                Command="{Binding GroupPallets}">
+            </Button>
+            <Button
+                Content="Get 3 Sorted" 
+                Padding="10,5" 
+                Margin="5"
+                Command="{Binding GetSortedPallets}">
+            </Button>
         </StackPanel>
 
         <DataGrid x:Name="PalletsData"

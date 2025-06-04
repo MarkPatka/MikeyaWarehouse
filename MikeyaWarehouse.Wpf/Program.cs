@@ -22,7 +22,7 @@ internal class Program
         //Parsed<CommandLineOptions> parserResult = Parser.Default
         //    .ParseArguments<CommandLineOptions>(args)
         //    .Cast<Parsed<CommandLineOptions>>();
-        
+
         EnvLoader.Load();
 
         //if (parserResult.Value.IsConsoleModeEnabled) 

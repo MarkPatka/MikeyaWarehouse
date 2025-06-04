@@ -6,7 +6,7 @@ using MikeyaWarehouse.Wpf.Commands.Abstract;
 using MikeyaWarehouse.Wpf.ViewModels.Implementations;
 using MikeyaWarehouse.Wpf.ViewModels.Interfaces;
 using System.IO;
-using System.Windows.Input;
+using System.Threading.Channels;
 
 namespace MikeyaWarehouse.Wpf;
 
@@ -35,8 +35,28 @@ public static class DependencyInjection
 
         services.AddSingleton<IConfiguration>(configuration);
 
-        services.Configure<DatabaseSettings>(
-            configuration.GetRequiredSection("Database"));
+        string host = Environment.GetEnvironmentVariable("PGHOST") 
+            ?? throw new ArgumentNullException(nameof(Environment.GetEnvironmentVariable));
+
+        int port =  Convert.ToInt32(Environment.GetEnvironmentVariable("PGPORT"));
+        
+        string user = Environment.GetEnvironmentVariable("PGUSER")
+            ?? throw new ArgumentNullException(nameof(Environment.GetEnvironmentVariable));
+        
+        string pass = Environment.GetEnvironmentVariable("PGPASSWORD")
+            ?? throw new ArgumentNullException(nameof(Environment.GetEnvironmentVariable));
+        
+        string name = Environment.GetEnvironmentVariable("PGDATABASE") 
+            ?? throw new ArgumentNullException(nameof(Environment.GetEnvironmentVariable));
+
+        services.Configure<DatabaseSettings>(options =>
+        {
+            options.DB_HOST = host;
+            options.DB_PORT = port;
+            options.DB_USER = user;
+            options.DB_NAME = name;
+            options.DB_PASSWORD = pass;
+        });
 
         return services;
     }
@@ -58,6 +78,8 @@ public static class DependencyInjection
             .AddTransient<LoadShipmentDataCommand>()
             .AddTransient<LoadProductDataCommand>()
             .AddTransient<LoadPalletDataCommand>()
+            .AddTransient<GroupPaletsByRuleCommand>()
+            .AddTransient<GetPalletsWithMaxExpireCommand>()
             ;
 
         return services;

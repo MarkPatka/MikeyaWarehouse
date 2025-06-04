@@ -5,24 +5,22 @@ using MikeyaWarehouse.Infrastructure.Helpers;
 
 namespace MikeyaWarehouse.Infrastructure.Services;
 
-public class PalletsManagementService 
-    : IPalletsManagementService
+public class PalletsManagementService : IPalletsManagementService
 {
     public Dictionary<DateOnly, List<Pallet>> GroupPalletsByExpirationDate(
         Pallet[] pallets, string direction = "ASC")
     {
 
         /// VAR 1
-        var result = pallets
-            .GroupBy(p => p.Expires)
-            .OrderBy(p => p.Key)
-            .ToDictionary(
-                k => k.Key,
-                v => v.Select(p => p)
-                      .OrderBy(p => p.Dimensions.Weight));
+        //var result = pallets
+        //    .GroupBy(p => p.Expires)
+        //    .OrderBy(p => p.Key)
+        //    .ToDictionary(
+        //        k => k.Key,
+        //        v => v.Select(p => p)
+        //              .OrderBy(p => p.Dimensions.Weight));
 
         /// VAR 2
-
         // Getting keys for groups
         var elements = pallets
             .Select(p => p.Expires);
@@ -67,8 +65,8 @@ public class PalletsManagementService
         int i = count;
         while (i > 0) 
         {
-            result[count - 1] = pallets[count - 1];
-            count--;
+            i--;
+            result[i] = pallets[i];
         }
 
         // get the index of the min element from the max elements array (by expire date)
