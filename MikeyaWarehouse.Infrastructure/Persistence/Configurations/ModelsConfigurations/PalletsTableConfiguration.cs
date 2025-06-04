@@ -31,10 +31,10 @@ public class PalletsTableConfiguration
                 id => id.Value,
                 value => PalletId.Create(value));
 
-        builder.Property(x => x.Expires)
-            .HasConversion(
-                dateOnly => dateOnly.ToDateTime(TimeOnly.MinValue),
-                dateTime => DateOnly.FromDateTime(dateTime));
+        //builder.Property(x => x.Expires)
+        //    .HasConversion(
+        //        dateOnly => dateOnly.ToDateTime(TimeOnly.MinValue),
+        //        dateTime => DateOnly.FromDateTime(dateTime));
 
         builder.Property(x => x.Type)
             .HasConversion(

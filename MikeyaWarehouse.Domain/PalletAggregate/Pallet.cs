@@ -11,7 +11,7 @@ public sealed class Pallet : AggregateRoot<PalletId>
     private readonly List<ProductBox> _boxes = [];
     public IReadOnlyList<ProductBox> ProductBoxes => _boxes.AsReadOnly();
     
-    public DateOnly Expires { get; }
+    public DateOnly Expires => _boxes.Min(x => x.Expire); // { get; }
     public Dimensions Dimensions { get; } = null!;
     public PalletType Type { get; } = PalletType.EURO_STANDARD;
 
