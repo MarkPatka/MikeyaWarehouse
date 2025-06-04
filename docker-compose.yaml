@@ -5,11 +5,11 @@ services:
     env_file:
         - .env
     environment:
-      POSTGRES_USER: ${Database__DB_USER}
-      POSTGRES_PASSWORD: ${Database__DB_PASSWORD}
-      POSTGRES_DB: ${Database__DB_NAME}
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_DB: ${PGDATABASE}
     ports:
-      - "${Database__DB_PORT}:5432"
+      - "${PGPORT}:5432"
     volumes:
       - mikeyaWarehouse_data:/var/lib/postgresql/data
     restart: unless-stopped
