@@ -125,7 +125,7 @@ public class PalletsManagementService : IPalletsManagementService
 
         while (i < left.Length && j < right.Length)
         {
-            if (left[i].Dimensions.Weight <= right[j].Dimensions.Weight)
+            if (left[i].GetPalletWhithBoxDimensions().Weight <= right[j].GetPalletWhithBoxDimensions().Weight)
                 arr[k++] = left[i++];
             else
                 arr[k++] = right[j++];

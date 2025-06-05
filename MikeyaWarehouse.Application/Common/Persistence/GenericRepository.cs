@@ -77,7 +77,7 @@ public abstract class GenericRepository<TType>
         await _dbSet.FindAsync(id);
     public async Task<TType?> GetAsync(Guid id) =>
         await _dbSet.FindAsync(id);
-    private async Task SaveAsync() =>
+    public async Task SaveAsync() =>
         await _dbContext.SaveChangesAsync();
 
     protected async Task ExecuteInASharedTransactionAsync(Func<Task> asyncAction)

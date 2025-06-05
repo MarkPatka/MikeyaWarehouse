@@ -31,11 +31,6 @@ public class PalletsTableConfiguration
                 id => id.Value,
                 value => PalletId.Create(value));
 
-        //builder.Property(x => x.Expires)
-        //    .HasConversion(
-        //        dateOnly => dateOnly.ToDateTime(TimeOnly.MinValue),
-        //        dateTime => DateOnly.FromDateTime(dateTime));
-
         builder.Property(x => x.Type)
             .HasConversion(
                 new ValueConverter<PalletType, int>(
@@ -77,12 +72,12 @@ public class PalletsTableConfiguration
 
             pb.Property(x => x.Expire)
                 .HasConversion(
-                    dateOnly => dateOnly.ToDateTime(TimeOnly.MinValue),
+                    dateOnly => dateOnly.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc),
                     dateTime => DateOnly.FromDateTime(dateTime));
             
             pb.Property(x => x.Production)
                 .HasConversion(
-                    dateOnly => dateOnly.ToDateTime(TimeOnly.MinValue),
+                    dateOnly => dateOnly.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc),
                     dateTime => DateOnly.FromDateTime(dateTime));
 
             pb.OwnsOne(x => x.Dimensions, d =>
@@ -128,12 +123,12 @@ public class PalletsTableConfiguration
 
                 ptb.Property(p => p.Production)
                     .HasConversion(
-                        dateOnly => dateOnly.ToDateTime(TimeOnly.MinValue),
+                        dateOnly => dateOnly.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc),
                         dateTime => DateOnly.FromDateTime(dateTime));
 
                 ptb.Property(p => p.Expires)
                     .HasConversion(
-                        dateOnly => dateOnly.ToDateTime(TimeOnly.MinValue),
+                        dateOnly => dateOnly.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc),
                         dateTime => DateOnly.FromDateTime(dateTime));
 
                 ptb.OwnsOne(x => x.BarCode, c =>
@@ -150,6 +145,8 @@ public class PalletsTableConfiguration
                 });
                
             });
+
+            pb.Navigation(x => x.Dimensions).IsRequired();
 
             pb.Navigation(x => x.Products).Metadata
                 .SetField("_products");

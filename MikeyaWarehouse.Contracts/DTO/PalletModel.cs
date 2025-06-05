@@ -14,14 +14,15 @@ public record PalletModel
 
     public PalletModel(Pallet pallet)
     {
-        Id = pallet.Id.Value;
-        TypeName = pallet.Type.Name;
-        Expires = pallet.Expires;
-        Dimensions = $"{pallet.Dimensions.Length}" +
-                     $"x{pallet.Dimensions.Width}" +
-                     $"x{pallet.Dimensions.Height}";
-        Volume = pallet.Dimensions.Volume;
-        Weight = pallet.Dimensions.Weight;
-        BoxesCount = pallet.ProductBoxes.Count;
+            Id = pallet.Id.Value;
+            TypeName = pallet.Type.Name;
+            Expires = pallet.Expires;
+            Dimensions = $"{pallet.Dimensions.Length}" +
+                         $"x{pallet.Dimensions.Width}" +
+                         $"x{pallet.Dimensions.Height}";
+            Volume = pallet.Dimensions.Volume;
+            Weight = pallet.Dimensions.Weight;
+            BoxesCount = pallet.ProductBoxes.Count;
+        
     }
 }

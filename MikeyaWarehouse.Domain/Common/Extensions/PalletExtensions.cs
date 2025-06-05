@@ -37,38 +37,18 @@ public static class PalletExtensions
         }
         return minValue;
     }
-    public static Dimensions GetPalletDimensions(this Pallet pallet)
+    public static Dimensions GetPalletWhithBoxDimensions(this Pallet pallet)
     {
-        var (length, width, height, weight) = pallet.Type.Id switch
-        {
-            1 => (
-                GlobalConstants.FIN_PALLET_LENGTH,
-                GlobalConstants.FIN_PALLET_WIDTH,
-                GlobalConstants.FIN_PALLET_HEIGHT,
-                GlobalConstants.FIN_PALLET_WEIGHT),
-            2 => (
-                GlobalConstants.EURO_PALLET_LENGTH,
-                GlobalConstants.EURO_PALLET_WIDTH,
-                GlobalConstants.EURO_PALLET_HEIGHT,
-                GlobalConstants.EURO_PALLET_WEIGHT),
-            3 => (
-                GlobalConstants.EURO_STANDARD_PALLET_LENGTH,
-                GlobalConstants.EURO_STANDARD_PALLET_WIDTH,
-                GlobalConstants.EURO_STANDARD_PALLET_HEIGHT,
-                GlobalConstants.EURO_STANDARD_PALLET_WEIGHT),
-            _ => (0d, 0d, 0d, 0d)
-        };
-
         if (pallet.ProductBoxes.Count == 0)
-            return new Dimensions
-            {
-                Length = length,
-                Width = width,
-                Height = height,
-                Weight = weight
-            };
+            return pallet.Dimensions;
 
+        double height = pallet.Dimensions.Height, 
+               length = pallet.Dimensions.Length, 
+               width  = pallet.Dimensions.Width, 
+               weight = pallet.Dimensions.Weight;
+        
         var box = pallet.ProductBoxes[0];
+
         var boxesInRow = (length * width) / (box.Dimensions.Length * box.Dimensions.Width);
         var rowsCount = pallet.ProductBoxes.Count / boxesInRow;
 
@@ -81,11 +61,9 @@ public static class PalletExtensions
         return new Dimensions
         {
             Height = height,
-            Width = width,
+            Width  = width,
             Weight = weight,
             Length = length
         };
     }
-
-
 }

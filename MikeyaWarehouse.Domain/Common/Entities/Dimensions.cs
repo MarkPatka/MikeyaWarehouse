@@ -2,10 +2,10 @@
 
 public record Dimensions 
 {
-    public double Length { get; init; }
-    public double Width  { get; init; }
-    public double Height { get; init; }
-    public double Weight { get; init; }
+    public double Length { get; set; }
+    public double Width  { get; set; }
+    public double Height { get; set; }
+    public double Weight { get; set; }
 
     public double Volume => Length * Width * Height;
 }

@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MikeyaWarehouse.Application\MikeyaWarehouse.Application.csproj" />
     <ProjectReference Include="..\MikeyaWarehouse.Domain\MikeyaWarehouse.Domain.csproj" />
+    <ProjectReference Include="..\MikeyaWarehouse.Infrastructure\MikeyaWarehouse.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
