@@ -14,5 +14,17 @@ services:
       - mikeyaWarehouse_data:/var/lib/postgresql/data
     restart: unless-stopped
 
+  db_restore:  
+    image: postgres:latest
+    depends_on:
+      - mikeyaWarehouse_db
+    volumes:
+      - ./db_dumps:/db_dumps
+    environment:
+      PGPASSWORD: ${PGPASSWORD}
+    command: >
+      bash -c "sleep 10 && pg_restore -U ${PGUSER} -d ${PGDATABASE} -h mikeyaWarehouse_db /db_dumps/MikeyaDatabase.dump"
+    restart: on-failure
+
 volumes:
   mikeyaWarehouse_data:

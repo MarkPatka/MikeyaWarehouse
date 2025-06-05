@@ -28,6 +28,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MikeyaWarehouse.Contracts",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MikeyaWarehouse.Application.UnitTests", "MikeyaWarehouse.Application.UnitTests\MikeyaWarehouse.Application.UnitTests.csproj", "{A15ADA54-5486-4EF0-BF63-E6380E0CC0CD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "db_dumps", "db_dumps", "{C8B3CBAE-8ACA-4886-9AA9-D59DE06F5E21}"
+	ProjectSection(SolutionItems) = preProject
+		db_dumps\MikeyaDatabase.dump = db_dumps\MikeyaDatabase.dump
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -116,6 +121,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{02EA681E-C7D8-13C7-8484-4AC65E1B71E8} = {8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}
+		{C8B3CBAE-8ACA-4886-9AA9-D59DE06F5E21} = {8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {07E0C9A3-7DDD-474E-99D2-46867380E279}
